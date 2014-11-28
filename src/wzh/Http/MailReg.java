@@ -21,7 +21,7 @@ import org.json.JSONObject;
 public class MailReg extends JFrame {
 
 	/**
-	 * 
+	 * aaaaa
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
