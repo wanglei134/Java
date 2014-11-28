@@ -1,0 +1,489 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta property="qc:admins" content="25322312776100563757">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>百优互联-全国知名IDC提供商-专业提供虚拟主机|域名注册|美国服务器|云服务器|vps服务器</title>
+<meta name="keywords" content="虚拟主机、域名注册、美国虚拟主机、厦门主机租用、网站空间租用、美国服务器租用、服务器托管、云服务器、vps服务器、免费企业邮局">
+<meta name="description" content="百优互联是一家国际性的高科技互联网技术服务提供商，全国排名前列，为全国几万用户提供域名注册、虚拟主机、云服务器租用、美国服务器租用、企业邮局服务等，专业及时的售后服务得到全国用户的一致认可">
+<link type="text/css" rel="stylesheet" href="/themes/common.css">
+<script type="text/javascript" src="/include/jquery.js"></script>
+<script src="/include/SlideTrans.js"></script>
+<script>
+	$(document).ready(function(){
+		var $addiv=$("div.ad");
+		$addiv.find(".ad01").show().end().find(".ad02").hide();
+		$addiv.find(".ad01:first").hide().end().find(".ad02:first").show();
+		$addiv.find(".ad01").mouseover(function(){
+			$addiv.find(".ad01").show().end().find(".ad02").hide();
+			$(this).hide().next("div:first").show();
+		});
+		$('#tab-title font').mouseover(function(){
+			$(this).addClass("selected").siblings().removeClass();
+			$("#tab-content > ul").eq($('#tab-title font').index(this)).show().siblings().hide();
+		});
+
+		$("#uclouddv").click(function(){
+			window.location.href='/uCloud/index.shtml';
+		});
+
+	});
+</script>
+<style>
+#tab-title .selected{} /*标题被选中时的样式*/
+#tab-content .hide{display:none;} /*默认让第一块内容显示，其余隐藏*/
+.containerchgflash,.containerchgflash img{width:718px; height:211px;}
+.containerchgflash img{border:0;vertical-align:top;}
+.containerchgflash ul,.containerchgflash li{list-style:none;margin:0;padding:0;}
+.num{ position:absolute; right:5px; bottom:5px; font:12px/1.5 tahoma, arial; height:18px;}
+#uclouddv{cursor:pointer;}
+.num li{
+	float: left;
+	color: #d94b01;
+	text-align: center;
+	line-height: 16px;
+	width: 16px;
+	height: 16px;
+	font-family: Arial;
+	font-size: 11px;
+	cursor: pointer;
+	margin-left: 3px;
+	border: 1px solid #f47500;
+	background-color: #fcf2cf;
+}
+.num li.on{
+	line-height: 18px;
+	width: 18px;
+	height: 18px;
+	font-size: 14px;
+	margin-top:-2px;
+	background-color: #ff9415;
+	font-weight: bold;
+	color:#FFF;
+} 
+ 
+.vh-index{font-family: STHeiti,"Microsoft YaHei",Simsun;zoom: 1;	background-color: rgb(245, 245, 245);	overflow: hidden;	padding-top: 0px;	padding-right: 0px;	padding-bottom: 0px;padding-left: 0px;	clear: both;	margin-top: auto;	margin-right: auto;	margin-bottom: auto;	margin-left: auto;overflow: hidden;	float: left;}
+
+.vh-index .contents{	width: 676px;	padding-top: 16px;	padding-right: 5px;	padding-bottom: 16px;	padding-left:45px;	margin-bottom: 6px;	border-top-color: #d7d7d7;	border-right-color: #d7d7d7;	border-bottom-color: #d7d7d7;	border-left-color: #d7d7d7;	border-top-width: 1px;	border-right-width: 1px;	border-bottom-width: 1px;	border-left-width: 1px;	border-top-style: solid;	border-right-style: solid;	border-bottom-style: solid;	border-left-style: solid;	border-top-left-radius: 5px;	border-top-right-radius: 5px;	border-bottom-right-radius: 5px;	border-bottom-left-radius: 5px;	background-image: none;	background-attachment: scroll;	background-repeat: repeat;	background-position-x: 0%;	background-position-y: 0%;	background-size: auto;	background-origin: padding-box;	background-clip: border-box;	background-color: white;}
+
+.vh-index .contents h2{	color: #3c3c3c;	font-size: 24px;}
+.vh-index .sever-aliyun dl{	width: 718px;	display: inline-block;}
+.vh-index .sever-aliyun dt{	padding-top: 36px;	padding-right: 36px;	padding-bottom: 0px;	padding-left: 3px;	float: left;}
+.vh-index .sever-aliyun dd{	padding-top: 40px;	padding-right: 0px;	padding-bottom: 0px;	padding-left: 0px;	float: left;}
+.vh-index .fit-user-bg{	padding-top: 20px;	padding-right: 0px;	padding-bottom: 0px;	padding-left: 75px;	background-image: url("/images/new/shyh.jpg");	background-attachment: scroll;	background-repeat: no-repeat;	background-position-x: 0px;	background-position-y: 18px;	background-size: auto;	background-origin: padding-box;	background-clip: border-box;	background-color: transparent;}
+.vh-index .sever-aliyun dd.see-details{	padding-right: 48px;	float: right;}
+.vh-index .sever-aliyun ul li{	padding-top: 10px;	padding-right: 16px;	padding-bottom: 0px;	padding-left: 20px;	float: left;}
+.vh-index .sever-aliyun ul li.last-li{	padding-right: 0px;}
+.vh-index .sever-aliyun ul{	width: 632px;	padding-top: 20px;	padding-right: 2px;	padding-bottom: 26px;	padding-left: 2px;	display: block;}
+img{	border-top-color: currentColor;	border-right-color: currentColor;	border-bottom-color: currentColor;	border-left-color: currentColor;	border-top-width: medium;	border-right-width: medium;	border-bottom-width: medium;	border-left-width: medium;	border-top-style: none;	border-right-style: none;	border-bottom-style: none;	border-left-style: none;}
+.descrip-line{	width: 490px;	line-height: 20px;}
+ul, li{	list-style-type: none;	list-style-position: outside;	list-style-image: none;}
+a{	text-decoration: none;}
+.clearfix::after{	height: 0px;	clear: both;	display: block;	visibility: hidden;	content: ".";}
+.clearfix{	display: inline-block;}
+.clearfix{	display: block;}
+.red{color: #cc0000;}
+.gray{	color: #999999;}
+
+
+</style>
+</head>
+<body>
+<div class="body_con">
+     <div class="container">
+         <div class="top">
+			<div class="logo"><a href="/"><img src="/images/logo.jpg"></a></div>
+<div class="r_top"><script type="text/javascript">document.write('<scr'+'ipt type="text/javascript" src="/top_login.asp?id='+ Math.random() +'"></sc' + 'ript>');</script><script type="text/javascript" src="/top_login.asp?id=0.4634039106313139"></script><script type="text/javascript" src="/include/top_login.js"></script>
+<form name="loginform" action="/login.asp" method="post" onsubmit="return login_onclick()"><div class="login"><ul><li>用户名：<input name="u_name" id="u_name" type="text"> 密 码：<input name="u_password" type="password" id="u_password"></li><li><input style="bottom:0px;margin-bottom:0px;" class="imgbtn" type="image" src="/images/btn01.gif"></li><li><a href="/reg/register.shtml">注册</a> | <a href="/reg/forgot_password.shtml">忘记密码？</a></li> <li>| <a href="http://2010.100u.com"><font color="#ff0000"><strong>旧版入口</strong></font></a></li></ul><p><a href="/onlinepay/onlinepay.shtml"><img src="/images/pay03.jpg" title="付款方式"></a></p></div> </form>
+</div>
+<div id="nav_wrap">
+	<div id="nav">
+		<div class="l"></div>
+		<ul class="c">
+			<li class="nav_lishw"><span class="v"><a href="/" class="sele">百优首页</a></span><div class="kind_menu" style="left: 10px; display: block; "> 欢迎您访问百优互联,我们为您提供最优质的互联网服务!<font color="#DA3508"><strong>域名促销：.com[50元].net[50元].cn[70元].info[65元].biz[65元]</strong></font></div></li>
+			<li class=""><span class="v"><a href="/domain/index.shtml">域名注册</a></span><div id="domainmemunav" class="kind_menu" style="left:20px;"><a href="/domain/index.shtml?tabid=1">英文域名</a><span>|</span><a href="/domain/index.shtml?tabid=2">CN地方域名</a><span>|</span><a href="/domain/index.shtml?tabid=3">中文域名</a><span>|</span><a href="/domain/index.shtml?tabid=4">批量注册</a><span>|</span><a href="/domain/index.shtml?tabid=5">域名价格</a><span>|</span><a href="/domain/dns_buy.asp">DNS管理器</a><span>|</span><a href="/domain/url_buy.asp">URL转发器</a><span>|</span><a href="/domain/api" target="_blank">API注册接口</a><span>|</span></div>
+			<!--<div id="domainmemunav" class="kind_menu" style="left:20px;"><a href="javascript:void(0);" onclick="setTab('one',1,4)" >英文域名</a><span>|</span><a href="javascript:void(0);" onclick="setTab('one',2,4)">中文域名</a><span>|</span><a href="javascript:void(0);" onclick="setTab('one',3,4)">批量注册</a><span>|</span><a href="javascript:void(0);" onclick="setTab('one',4,4)">域名价格</a><span>|</span></div>--></li>
+			<li class=""><span class="v"><a href="/hosting/cn_cnt_windows_jingpin.shtml">全球空间</a></span><div class="kind_menu" style="left:40px;"><a href="/hosting/cn_cnt_windows_jingpin.shtml">电信 Windows </a><span>|</span><a href="/hosting/cn_cnt_linux_jingpin.shtml">电信 Linux </a><span>|</span><a href="/hosting/cn_cnc_windows_jingpin.shtml">网通 Windows </a><span>|</span><a href="/hosting/cn_cnc_linux_jingpin.shtml">网通 Linux </a><span>|</span><a href="/hosting/en_hk_windows.shtml">香港 Windows </a><span>|</span><a href="/hosting/en_us_windows.shtml">美国 Windows</a><span>|</span><a href="/hosting/en_us_linux.shtml">美国 Linux</a><span>|</span><a href="/hosting/mysql.shtml">数据库 MYSQL </a><span>|</span><a href="/hosting/mssql.shtml">数据库 MSSQL </a></div></li>
+			<li class=""><span class="v"><a href="/weixin/">微信平台</a></span></li>
+			<li class=""><span class="v"><a href="/mail/index.shtml">企业邮局</a></span><!--<div class="kind_menu" style="left:80px;"><a href="javascript:void(0);">企业邮局1</a><span>|</span><a href="javascript:void(0);">企业邮局2</a></div>--></li>
+			<li class=""><span class="v"><a href="/server/index.shtml">租用托管</a></span><div class="kind_menu" style="left:320px;width:630px;"><a href="/server/index.shtml">服务器租用</a><span>|</span><a href="/server/tg.shtml">服务器托管</a><span>|</span><a href="/server/jg.shtml">机柜租用</a><span>|</span><a href="/server/us.shtml">美国机房</a><span>|</span><a href="/server/hk.shtml">香港机房</a><span>|</span><a href="/server/service.shtml">增值服务</a></div></li>
+			<li class=""><span class="v"><a href="/ucloud/index.shtml">云服务器</a></span><div class="kind_menu" style="left:580px;width:430px;"><a href="/ucloud/index.shtml">香港NWT</a><span>|</span><a href="/ucloud/index.shtml">中国电信</a><span>|</span></div></li>
+			<li class=""><span class="v"><a href="/admin/" onclick="setCookie('lasturl','',1); ">客服中心</a></span><div class="kind_menu" style="left:650px;width:430px;"><a href="/jifen/">积分商城</a><span>|</span><a href="http://www.bidns.net" target="_blank">产品控制面板</a><span>|</span><a href="/help/update/">帮助中心</a></div></li>
+		</ul>
+		<div class="r"></div>
+	</div>
+	<div id="tmenu"></div>
+</div> 
+<script type="text/javascript" src="/include/top_menu.js"></script>
+         </div>
+         <div class="con">
+           	<div class="con_l">
+               <div class="index_banner">
+					<div class="containerchgflash" id="idContainer2" style="position: relative; overflow-x: hidden; overflow-y: hidden; ">
+						<ul id="idSlider2" style="position: absolute; top: 0px; ">
+							<li><a href="/ucloud/index.shtml"> <img src="/ad/banner04.jpg"> </a></li>
+							<li><a href="/hosting/cn_cnt_windows_jingpin.shtml"> <img src="/ad/banner02.jpg"> </a></li>
+						</ul>
+						<ul class="num" id="idNum">
+						<li class="on">1</li><li class="">2</li></ul>
+					</div> 
+					<script>
+						var nums = [], timer, n = $$("idSlider2").getElementsByTagName("li").length,
+							st = new SlideTrans("idContainer2", "idSlider2", n, {
+								onStart: function(){//设置按钮样式
+									forEach(nums, function(o, i){ o.className = st.Index == i ? "on" : ""; })
+								}
+							});
+						for(var i = 1; i <= n; AddNum(i++)){};
+						function AddNum(i){
+							var num = $$("idNum").appendChild(document.createElement("li"));
+							num.innerHTML = i--;
+							num.onmouseover = function(){
+								timer = setTimeout(function(){ num.className = "on"; st.Auto = false; st.Run(i); }, 200);
+							}
+							num.onmouseout = function(){ clearTimeout(timer); num.className = ""; st.Auto = true; st.Run(); }
+							nums[i] = num;
+						}
+						st.Run();
+					</script>
+				</div>
+
+
+
+
+					<div class="vh-index inner clearfix">
+									<div class="contents clearfix" id="uclouddv">
+										<h2>全新优云服务器 <font color="red">最低50元/月</font></h2>
+										<div class="sever-aliyun">
+											<dl>
+											<dt>
+											<img src="/images/new/T1ZdhBFDXrXXaFjuA7-115-77.jpg">
+											</dt>
+											<dd class="descrip-line">
+											<span class="red">&nbsp;&nbsp;&nbsp;&nbsp;先进的KVM云服务器，独立控制面板，开机可视，远程桌面/SSH权限，快照备份，多机房，多选择，一键升级，瞬时交付。独立控制面板，开机可视，远程桌面/SSH权限，快照备份，多机房，多选择，一键升级，瞬时交付。</span>
+											</dd>
+											</dl>
+											<ul class="">
+												<li>
+													<img src="/images/new/T11TZ5FjdmXXX98vbh-171-56.jpg">
+												</li>
+												<li>
+													<img src="/images/new/T1LjJDFpFhXXX98vbh-171-56.jpg">
+												</li>
+												<li class="last-li">
+													<img src="/images/new/T19uXEFBtXXXX98vbh-171-56.jpg">
+												</li>
+											</ul>
+										</div>
+									</div>
+									 
+										<div class="contents clearfix">
+										<h2>微信，助您锁定移动商机<font color="red">最低168元/年</font></h2>
+										<div class="sever-aliyun">
+											<dl>
+											<dt>
+											<img src="/images/new/weixin.png" width="99">
+											</dt>
+											<dd class="descrip-line">
+											<span class="red">&nbsp;&nbsp;&nbsp;&nbsp;在传统的互联网时代，大家都在用百度搜索自己需要的信息，而到了移动互联网时代，微信以最大的用户数量以及便捷的信息获取方式成为上网入口，所以，企业必须要有一个微网站才能在移动互联网开展业务。 </span>
+											</dd>
+											</dl>
+											
+										</div>
+									</div>
+								 
+					
+					</div>
+
+            </div>
+            <div class="con_r">
+              <div class="r_frame">
+              <div class="title"><b>域名搜索</b><span>&nbsp;</span></div>
+              <div class="frame_list">
+			  <script type="text/javascript" src="/include/index_domain.js"></script>
+              <form name="form1" method="get" action="/domain/query.asp">
+                         <div class="index_domain">
+							<input name="checktype" type="radio" value="0" checked="" onclick="checkDomainForm('0')"> 英文域名 
+							<input name="checktype" type="radio" value="1" onclick="checkDomainForm('1')"> 中文域名<br> <img src="/images/www.gif" align="absmiddle">
+							<input id="strdomain" name="strdomain" value="" style="width:100px; height:15px;border:1px solid #C4C4C4; background-color:#fff; color:#333">
+							<input type="image" name="zzzz" src="/images/domain_77.gif" align="absmiddle"> 
+							<br>
+                             <ul>
+							 	<li><input type="checkbox" value=".com" name="ext" checked="checked" id="ext1">.com</li>
+								<li><input type="checkbox" value=".net" name="ext" checked="checked" id="ext2">.net</li>
+								<li><input type="checkbox" value=".org" name="ext" id="ext3">.org</li>
+								<li><input type="checkbox" value=".cn" name="ext" checked="checked" id="ext4">.cn</li>
+								<li><input type="checkbox" value=".com.cn" name="ext" id="ext5">.com.cn</li>
+								<li><input type="checkbox" value=".net.cn" name="ext" id="ext6">.net.cn</li>
+								
+								<li><input type="checkbox" value=".com.tw" name="ext" id="ext13">.com.tw</li>
+								<li><input type="checkbox" value=".gov.cn" name="ext" id="ext14">.gov.cn</li>
+								<li><input type="checkbox" value=".hk" name="ext" id="ext15">.hk</li>
+								<!--
+								<li><input type="checkbox" value=".cc" name="ext"  id="ext7" />.cc</li>
+								<li><input type="checkbox" value=".tv" name="ext" id="ext8"  />.tv</li>
+								<li><input type="checkbox" value=".biz" name="ext" id="ext9"  />.biz</li>
+								<li><input type="checkbox" value=".name" name="ext" id="ext10"  />.name</li>
+								<li><input type="checkbox" value=".mobi" name="ext" id="ext11"  />.mobi</li>
+								<li><input type="checkbox" value=".info" name="ext" id="ext12"  />.info</li>
+								-->
+                                <li><input type="checkbox" value=".公司" name="ext" id="ext20" disabled="">.公司</li>
+                                <li><input type="checkbox" value=".网络" name="ext" id="ext21" disabled="">.网络</li>
+                                <li><input type="checkbox" value=".中国" name="ext" id="ext22" disabled="">.中国/cn</li>
+                             </ul>
+                         </div>
+                 </form>
+                         <div class="whois_domain">
+						 <form name="searchwhois" action="/domain/view.asp" method="post" target="_blank">
+						    <img src="/images/whois.gif" align="absmiddle">
+							<input id="searchwhois" name="domain" value="100u.com" style="width:100px; height:15px;border:1px solid #C4C4C4; background-color:#fff; color:#333" onclick="this.value='';">
+							<input type="image" name="zzzz" src="/images/domain_77.gif" align="absmiddle"> 
+						</form>
+                         </div>
+                 </div>
+                    <div class="frame_bottom"></div>
+               </div>
+               <div class="r_frame">
+                    <div class="title"><b>线上咨询</b><span>&nbsp;</span></div>
+                    <div class="frame_list">
+                         <div class="advisory"> <ul><style type="text/css">
+#dialog-box {
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background:#fff;
+	width:352px;
+	height:440px;
+	position:absolute; 
+	display:none;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+
+//$("#dialog-box").draggable();
+
+$("#669729").click(function() {popup(669729);});
+$("#669736").click(function() {popup(669736);});
+$("#669719").click(function() {popup(669719);});
+$("#669717").click(function() {popup(669717);});
+$("#669716").click(function() {popup(669716);});
+$("#669725").click(function() {popup(669725);});
+
+
+function popup(message) {
+	var startwidth=10;
+	var startheight=60;
+	var mysheight = screen.height;
+	var myswidth = screen.width;
+	startwidth = myswidth/2 - 174;
+	if(mysheight<720){startheight=10;}
+	if(mysheight>=900){startheight=120;}
+	//打开对话框，调用url
+	$.ajax({
+		url: "/qq/onlineservice.asp?qqid="+message,
+		type: "GET",
+		dataType: "html",
+		cache:false,
+		beforeSend: function(HttpRequest){
+		},
+		complete : function (req, err) {
+			$(".dialog-content").append(req.responseText);
+			$("#dialog-box").css({top:startheight, left:startwidth}).show();
+		},
+		error: function(){
+		}
+	});
+}
+
+$(window).scroll(function (){
+
+if ($("#dialog-box").css("display")=="block")
+{
+var re = getLT2(352,440);
+$("#dialog-box").css({position:"absolute",top:re[1],left:re[0]}).show();
+}
+});
+
+$(window).resize(function (){
+if ($("#dialog-box").css("display")=="block")
+{
+var re = getLT2(352,440);
+$("#dialog-box").css({position:"absolute",top:re[1],left:re[0]}).show();
+}
+});
+
+});
+
+//function show_qq(){
+//	var re = getLT2(352,440);
+//	$("#dialog-box").css({position:"absolute",top:re[1],left:re[0]}).show();
+//}
+
+// 计算对象居中需要设置的left和top值   
+// 参数：   
+//  _w - 对象的宽度   
+//  _h - 对象的高度   
+function getLT2(_w,_h)   
+{   
+   var de = document.documentElement;   
+  
+   // 获取当前浏览器窗口的宽度和高度   
+   // 兼容写法，可兼容ie,ff   
+   var w = self.innerWidth || (de&&de.clientWidth) || document.body.clientWidth;   
+   var h = (de&&de.clientHeight) || document.body.clientHeight;   
+  
+   // 获取当前滚动条的位置   
+   // 兼容写法，可兼容ie,ff   
+   var st= (de&&de.scrollTop) || document.body.scrollTop;   
+  
+   var topp=0;   
+   if(h>_h)   
+     topp=(st+(h - _h)/2);   
+   else  
+     topp=st;   
+  
+   var leftp = 0;   
+   if(w>_w)   
+     leftp = ((w - _w)/2);   
+  
+   // 左侧距，顶部距   
+   return [leftp,topp];   
+}
+
+</script>
+<li class="advisory_li"><a href="#" id="669725">『百优-1』</a></li>
+<li class="advisory_li"><a href="#" id="669736">『百优-2』</a></li>
+<li class="advisory_li"><a href="#" id="669729">『百优-3』</a></li>
+<li class="advisory_li"><a href="#" id="669716">『百优-5』</a></li>
+<li class="advisory_li"><a href="#" id="669719">『百优-6』</a></li>
+<li class="advisory_li"><a href="#" id="669717">『百优-8』</a></li>
+<div id="dialog-box" onmouseover="Move_obj(&quot;dialog-box&quot;)" style="top: 60px; left: 509px; display: block; ">
+<div class="dialog-content">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="/qq/include/common.css" rel="stylesheet">
+
+
+
+
+
+<form name="aaaaaform" id="aaaaaform">
+<div style="display: block; " class="advisory_box" id="advisory_box">
+<div class="advisory_box_title"><b><img src="/qq/images/vip.gif" style="padding-top:5px;">
+您还没有登陆,<a href="#" id="qq_login">请登陆!</a> &nbsp; <a href="#" id="qq_reg">注册成为百优会员！</a></b><span><a href="#" onclick="openUrl('/qq/onlineservicestatus.asp?aa=0&amp;randid=' + Math.random() + '');document.getElementById('dialog-box').style.display='none';">   <img src="/qq/images/close.gif" id="closeimg1"></a></span> 
+</div>
+  <div class="advisory_box_center">
+	<div class="output_panel">
+	  <div class="output_panel_title"> <b><img src="/qq/images/logo.gif">百优互联 <a href="tencent://message/?uin=669719&amp;Site=100u.com&amp;Menu=yes">通过腾讯QQ 联系 669719 </a></b><span>&nbsp;</span> </div>
+	  <div class="output_panel_list" id="msginfodiv">
+			<ul id="checkInfo">
+			<li><span> (百优互联)  07:53:54 </span><p><br>
+您好，百优互联欢迎您！<br><br>
+<a href="/domain/index.shtml?tabid=1"><font color="red">国际域名价格稳定，长期执行价格：50元/年！</font></a><br><br>
+<a href="/ucloud/index.shtml"><font color="red">50元起，优云主机低价实惠，功能齐全！</font></a><br><br>
+</p></li>
+			</ul>
+	  </div>
+	</div>
+	<div class="feature_article">
+		 <ul>
+			 <li><a href="#"></a></li>
+			 <li><a href="#" onclick="reflashmsg();">刷新消息</a></li>
+			 <li><a class="b" href="#">聊天记录</a></li>
+		 </ul>
+	</div>
+	<div class="input_panel">
+	  <textarea name="inputtext" id="inputtext" onmousemove="this.style.background='#d7f0ff';" onmouseout="this.style.background='#FFFFFF';" onkeydown="CHECKKEY()"></textarea>
+	</div>
+  </div>  
+  <div class="advisory_box_bottom">
+	   <ul>
+		   <li><input id="btnclosed" name="btnclosed" type="image" src="/qq/images/closed.gif" width="59" height="21" onclick="openUrl('/qq/onlineservicestatus.asp?aa=0&amp;randid=' + Math.random() + '');document.getElementById('dialog-box').style.display='none';return false;"></li>
+		   <li><input id="btnsend" name="btnsend" type="image" src="/qq/images/send.gif" width="59" height="21" onclick="document.getElementById('aaaaaform').module.value='send';inputMsgcheck(document.getElementById('aaaaaform'));return false;"></li>
+		   <li><input id="btnopennext" name="btnopennext" type="image" src="/qq/images/btn.gif" width="9" height="21" onclick="return false;"></li>
+	   </ul>
+		<input type="hidden" name="myqqnumber" value="" id="myqqnumber">
+		<input type="hidden" name="module" value="send">
+  </div>
+</div>
+</form>
+
+
+
+
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+	document.write('<scr'+'ipt type="text/javascript" src="/qq/messageJsCheck.asp?id='+ Math.random() +'"></sc' + 'ript>');
+</script><script type="text/javascript" src="/qq/messageJsCheck.asp?id=0.9829572152812034"></script>
+
+<script language="JavaScript" type="text/javascript">
+var x,y
+var drag_=false
+var D=new Function('obj','return document.getElementById(obj);')
+var IE=new Function('','if(navigator.appName.indexOf("Explorer")>=0)return 1;if(navigator.appName.indexOf("Netscape")>=0)return 2')
+function Move_obj(obj){//1
+                     D(obj).onmousedown=function(e){drag_=true//4
+                              with(this){style.position="absolute";temp1=offsetLeft;temp2=offsetTop;//5
+                              if(IE()==1){//6
+									x=event.clientX;y=event.clientY;
+									var num1 = parseInt(y);
+								    var num2 = parseInt(style.top);
+								    var num3 = (num1-num2);
+								    if(num3>52) {  drag_=false ;}
+                                    document.onmousemove=function(e){//7
+                                        if(drag_!=false)
+										{
+										with(this){style.left=temp1+event.clientX-x+"px";style.top=temp2+event.clientY-y+"px"}
+										}
+									 }//7
+                              }//6
+                              if(IE()==2){x=e.pageX;y=e.pageY;//8 r
+								  var num1 = parseInt(y);
+								  var num2 = parseInt(style.top); 
+								  var num3 = parseInt(num1-num2);
+								   
+								  if(num3>52) { drag_=false ;}
+                                  document.onmousemove=function(e){//9
+                                        if(drag_==false)return false
+                                     with(this){style.left=temp1+e.pageX-x+"px";style.top=temp2+e.pageY-y+"px";}
+                                     }//9
+                              }//8
+                        }//5
+           document.onmouseup=new Function("drag_=false")
+                     }//4
+}//1
+</script></ul></div>
+                    </div>
+                    <div class="frame_bottom"></div>
+               </div>
+               <div class="r_frame">
+                    <div class="title" id="tab-title"><b><font class="selected">百优公告</font> | <font class="selected">公司新闻</font></b><span><a href="/news/class/78_index.shtml">更多&gt;&gt;</a></span></div>
+                    <div class="frame_list">
+                         <div class="index_anmt" id="tab-content">
+                              <ul><script language="javascript" src="/inc_html/jsasp/2.js"></script><li><a href="/news/gonggao/78_20140219101207.shtml" target="_blank">关于备案管理系统升级...</a><span>2014-02-19</span></li><li><a href="/news/gonggao/78_20140122113558.shtml" target="_blank">2014春节假期期间相关...</a><span>2014-01-22</span></li><li><a href="/news/gonggao/78_20130916111010.shtml" target="_blank">倡议书</a><span>2013-09-16</span></li><li><a href="/news/gonggao/78_20130814164240.shtml" target="_blank"><span style="color:#000000;"><strong>部分国际域名续费转移...</strong></span></a><span>2013-08-14</span></li><li><a href="/news/gonggao/78_20130729212654.shtml" target="_blank">百优互联乔迁公告</a><span>2013-07-29</span></li><li><a href="/news/gonggao/78_20130328161359.shtml" target="_blank">工信部系统升级期间暂...</a><span>2013-03-28</span></li><li><a href="/news/gonggao/78_20130308112641.shtml" target="_blank">域名价格调整通知</a><span>2013-03-08</span></li><li><a href="/news/gonggao/78_20130307153433.shtml" target="_blank">关于工信部开展2013年...</a><span>2013-03-07</span></li><li><a href="/news/gonggao/78_20130201153907.shtml" target="_blank">2013春节假期期间相关...</a><span>2013-02-01</span></li><li><a href="/news/gonggao/78_20130117153939.shtml" target="_blank">关于网站首页备案号及...</a><span>2013-01-17</span></li></ul>
+							  <ul class="hide"><script language="javascript" src="/inc_html/jsasp/8.js"></script><li><a href="/news/xinwen/79_20101210153002.shtml" target="_blank">春节放假通知</a><span>2010-12-10</span></li><li><a href="/news/xinwen/79_20101123113933.shtml" target="_blank">公司喜迁新址</a><span>2010-11-23</span></li></ul>
+                         </div>
+                    </div>
+                    <div class="frame_bottom"></div>
+               </div>
+            </div>
+         </div>
+       ﻿<div class="clear"></div>
+<div class="secondary">
+	<a href="/aboutus/contact.shtml">联系我们</a> | <a href="/onlinepay/pay.shtml">付款方式</a> | <a href="/onlinepay/onlinepay.shtml">在线支付</a> | <a href="http://agent.100u.com/" target="_blank">代理加盟</a> | <a href="/news/class/78_index.shtml">新闻中心</a>
+	</div>
+	<div class="copyright"><a href="http://www.xiamen.cyberpolice.cn/" target="_blank"><img src="/images/xm.gif" height="60px"></a>
+	<img src="/images/logo.gif">电话：0592-2207667 0592-2207669<br>传真：0592-2296567 邮编：361004<br>地址：<strong><font color="ff0000">福建省厦门市思明区天湖路40号1012室</font></strong><br>
+	《中华人民共和国增值电信业务经营许可证》编号：<a href="/aboutus/isp.shtml"> 闽B2-20100057</a>  <a href="http://www.miitbeian.gov.cn/" target="_blank">闽ICP备07500392号</a><br>
+	Copyright © 2003-2013 100U Technology Corp. All rights reserved.  厦门百优科技有限公司  版权所有
+		 		 <script src="http://s4.cnzz.com/stat.php?id=3882791&amp;web_id=3882791" language="JavaScript"></script><script src="http://c.cnzz.com/core.php?web_id=3882791&amp;t=z" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=3882791" target="_blank" title="站长统计">站长统计</a>
+	<br>
+</div><img src="http://img.tongji.linezing.com/2752403/tongji.gif" border="0">
+     </div>
+</div>
+
+</body></html>
