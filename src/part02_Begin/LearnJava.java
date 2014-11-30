@@ -1,6 +1,5 @@
 package part02_Begin;
 
-import java.util.Date;
 
 public class LearnJava {
 	/**

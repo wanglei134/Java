@@ -1,4 +1,4 @@
-package part04_Control;
+package part04_ProgramControl;
 
 import java.util.Random;
 
