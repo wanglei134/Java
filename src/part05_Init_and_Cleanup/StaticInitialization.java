@@ -32,6 +32,8 @@ class Bowl{
  * bowl(2)
  * Table()
  * f1(1)
+ * 如果只是单纯的声明，比如：Table t;
+ * 则不会创建任何对象
  * @author laowang
  *
  */
