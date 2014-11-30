@@ -11,18 +11,20 @@ import part01_OOP.Print;
  * 编译器就会给出错误信息
  * 2.public必须完全与含有该编译单元的文件名相匹配，包括大小写
  * 3.编译单元内完全不带public类也是可能的，在这种情况下，可以随意对文件命名
+ * 4.类不可以是private的（这样使得除该类外，其他类都不可以访问）
+ * 5.类也不可以是protected的
+ * 6.所以对于类的访问权限，仅有两个选择，public或包访问权限
  * @author laowang
  *
  */
- public class AccessControl {
+
+ class AccessControl {
 /**
  * 如果class AccessControl不是public表示不能被外部访问
  * 只有包内部的访问权限
- * 这个时候里面的main方法只是一个普通的静态方法
- * 并不是入口函数
  * 如果是public的，则必须和文件名一致
  * 因为这个时候是公共的接口
- * 如果不一致，会造成其他接口也会有同名的方法，造成混乱
+ * 如果不一致，会造成其他接口也会有同名的类，造成混乱
  * @param args
  */
 	public static void main(String[] args) {
@@ -32,8 +34,8 @@ import part01_OOP.Print;
 
 }
 // Java 中类名和文件名的关系
-// 1.Java保存的文件名必须与类名一致；
-// 2.如果文件中只有一个类，文件名必须与类名一致；
+// 1.Java保存的文件名必须与类名一致；(当有public修饰时)
+// 2.如果文件中只有一个类，文件名必须与类名一致；(当有public修饰时)
 // 3.一个Java文件中只能有一个public类；
 // 4.如果文件中不止一个类，文件名必须与public类名一致；
 // 5.如果文件中不止一个类，而且没有public类，文件名可与任一类名一致。
