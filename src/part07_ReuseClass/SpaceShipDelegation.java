@@ -17,6 +17,7 @@ class SpaceShipControls2{
  *
  */
 public class SpaceShipDelegation {
+	@SuppressWarnings("unused")
 	private String name;
 	private SpaceShipControls2 control=new SpaceShipControls2();
 	public SpaceShipDelegation(String name){

@@ -61,9 +61,13 @@ class Customer{
  *
  */
 public class PlaceSetting extends Customer{
+	@SuppressWarnings("unused")
 	private Spoon sp;
+	@SuppressWarnings("unused")
 	private Fork fork;
+	@SuppressWarnings("unused")
 	private Knife knife;
+	@SuppressWarnings("unused")
 	private DinnerPlate dinnerPlate;
 	public PlaceSetting(int i) {
 		// TODO Auto-generated constructor stub
@@ -75,6 +79,7 @@ public class PlaceSetting extends Customer{
 		Print.println("PlaceSetting Constructor");
 	}
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		PlaceSetting p=new PlaceSetting(9);
 	}
 }
