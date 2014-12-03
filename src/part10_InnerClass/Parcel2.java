@@ -2,11 +2,11 @@ package part10_InnerClass;
 
 import part01_OOP.Print;
 /**
- * Inner Class Demo01
+ * Inner class demo02
  * @author GQC347
  *
  */
-public class Parcel1 {
+public class Parcel2 {
 	class Contents{
 		private int i=11;
 		public int value(){
@@ -23,16 +23,25 @@ public class Parcel1 {
 			return this.label;
 		}
 	}
+	public Destination to(String s){
+		return new Destination(s);
+	}
+	public Contents contents(){
+		return new Contents();
+	}
 	public void ship(String dest){
-		Contents c=new Contents();
-		Print.println(c.i);
-		Destination d=new Destination(dest);
-		Print.println(d.readLabel());
+		Contents contents=contents();
+		Destination destination=to(dest);
+		Print.println(destination.readLabel());
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Parcel1 p=new Parcel1();
-		p.ship("chongqing");
+		Parcel2 p=new Parcel2();
+		p.ship("Polan");
+		Parcel2.Contents c=p.contents();
+		Parcel2.Destination d=p.to("Italy");
+//		Polan
+
 	}
 
 }
