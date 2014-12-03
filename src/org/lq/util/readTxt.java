@@ -9,7 +9,7 @@ public class readTxt {
 	public static StringBuffer readTxtFile(String filePath){ 
 		 StringBuffer lineTxt =new StringBuffer();
         try { 
-                String encoding="utf-8"; 
+                String encoding="gbk"; 
                 File file=new File(filePath); 
                 if(file.isFile() && file.exists()){ //判断文件是否存在 
                     InputStreamReader read = new InputStreamReader( 

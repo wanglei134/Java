@@ -1,6 +1,9 @@
 package org.lq.util;
 import java.io.File;
 import java.io.IOException;
+
+import org.lq.ui.FrameOne;
+
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -47,7 +50,7 @@ public class Excel {
 		//sheet.setColumnView(4, 20);		
 		//Id，Title, Author, Keywords, Abstract
 
-		String[] title = { "高校名称", "专业名称", "位次", "分数", "本位次录取人数","文理科","本专科","批次","年份"};
+		String[] title = { "专业名称", "高校名称", "专业平均分", "专业最高分", "考生所在地","科类","年份","录取批次"};
 		//写标题
 		for (int i = 0; i < title.length; i++) {
 			Label lable = new Label(i, 0, title[i]);
@@ -86,7 +89,12 @@ public class Excel {
 			Label label = new Label(i, length, args[i]);
 			sh.addCell(label);
 		}
-		int k=sheet.getRows();;
+		int k=sheet.getRows();
+		FrameOne.getProgressBar().setValue(k/45+(k%45==0?0:1));
+		if((k/45+(k%45==0?0:1))==ScheduleJob.PageCount)
+		{
+			FrameOne.getButton().setEnabled(true);
+		}
 		System.out.println("第--"+k+"--条记录");
 		//MainThread.setCurrentCount(MainThread.getCurrentCount()+1);	
 		wbook.write();
@@ -126,7 +134,7 @@ public class Excel {
 
 	public static void main(String [] args)
 	{
-		String [] strings={"1","2","3","4","5"};
+		String [] strings={"1","2","3","4","5","3","4","5"};
 		String filenameString="file";
 		try {
 			pushData(strings, filenameString);

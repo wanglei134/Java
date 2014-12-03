@@ -1,16 +1,12 @@
 package org.lq.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-
-
 import org.htmlparser.NodeFilter;
 import org.htmlparser.Parser;
-
 import org.htmlparser.filters.NodeClassFilter;
-
 import org.htmlparser.tags.TableColumn;
 import org.htmlparser.tags.TableRow;
 import org.htmlparser.tags.TableTag;
@@ -18,28 +14,23 @@ import org.htmlparser.util.NodeList;
 
 
 public class htmlParse {
-	public static void main(String [] args)
+	public static void main(String [] args) throws UnsupportedEncodingException
 	{
-		//StringBuffer buffer=readTxt.readTxtFile("d://1.txt");
-		//System.out.println(buffer);
-		
-		System.out.println(0%1500);
+		StringBuffer buffer=readTxt.readTxtFile("e://1.txt");	
+		System.out.println(getCount(buffer.toString()));
+		parse(buffer);
 	}
-	public static int getCount(String html)
+	public static int getCount(String html) throws UnsupportedEncodingException
 	{
 		//int a=0;
-		String str=html.toString();
-		int start=html.toString().indexOf("条记录");
-		if(start==-1)
-			return 0;
-		else
-			{
-				str=str.substring(start+7, start+15);
-				int i=str.indexOf("/");
-				int j=str.indexOf("页");
-				str=str.substring(i+1,j);
-				System.out.println(str);
-			}
+		String str=html;
+		int start=html.toString().indexOf("当前为");
+		str=html.substring(start,start+40);
+		start=str.indexOf(">");
+		int end=str.lastIndexOf("<");
+		str=str.substring(start, end);
+		start=str.indexOf("/");
+		str=str.substring(start+1);
 		return Integer.parseInt(str);
 	}
 	public static List<information> parse(StringBuffer html)
@@ -61,33 +52,24 @@ public class htmlParse {
 				TableRow row = table.getRow(j);
 				TableColumn[] columns = row.getColumns();				
 				for (int k = 1; k < columns.length; k++) {
-					System.out.println(k);					
-					data.setSchool(columns[1].toPlainTextString().trim());	
-					data.setMajor(columns[2].toPlainTextString().trim());
-					data.setRank(columns[3].toPlainTextString().trim());
-					data.setScore(columns[4].toPlainTextString().trim());
-					data.setTotal(columns[5].toPlainTextString().trim());
-					data.setWenliType(columns[6].toPlainTextString().trim());
-					data.setBzType(columns[7].toPlainTextString().trim());
-					data.setPici(columns[8].toPlainTextString().trim());
-					data.setYear(columns[9].toPlainTextString().trim());
-					
+					//System.out.println(k);	
+					data.setMajor(columns[0].toPlainTextString().trim());
+					data.setSchool(columns[1].toPlainTextString().trim());
+					data.setZypjscore(columns[2].toPlainTextString().trim());
+					data.setZyzgf(columns[3].toPlainTextString().trim());
+					data.setLocation(columns[4].toPlainTextString().trim());
+					data.setWenliType(columns[5].toPlainTextString().trim());	
+					data.setYear(columns[6].toPlainTextString().trim());
+					data.setPici(columns[7].toPlainTextString().trim());										
 				}	
 				info.add(data);
-				System.out.println();
+				//System.out.println();
 				}
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		System.out.println(info.size());
-		Iterator<information> irIterator=info.iterator();
-		while(irIterator.hasNext())
-		{
-			data=irIterator.next();
-			System.out.println(data.getSchool()+"--"+data.getScore());
-		}
+		//System.out.println(info.size());
 		return info;
 	}
-
 }

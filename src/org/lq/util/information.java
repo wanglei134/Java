@@ -1,36 +1,38 @@
 package org.lq.util;
 
 public class information {
-	String school;
-	public String getSchool() {
-		return school;
-	}
-	public void setSchool(String school) {
-		this.school = school;
-	}
+	
+
+	String major;
 	public String getMajor() {
 		return major;
 	}
 	public void setMajor(String major) {
 		this.major = major;
 	}
-	public String getRank() {
-		return rank;
+	public String getSchool() {
+		return school;
 	}
-	public void setRank(String rank) {
-		this.rank = rank;
+	public void setSchool(String school) {
+		this.school = school;
 	}
-	public String getScore() {
-		return score;
+	public String getZypjscore() {
+		return zypjscore;
 	}
-	public void setScore(String score) {
-		this.score = score;
+	public void setZypjscore(String zypjscore) {
+		this.zypjscore = zypjscore;
 	}
-	public String getTotal() {
-		return total;
+	public String getZyzgf() {
+		return zyzgf;
 	}
-	public void setTotal(String total) {
-		this.total = total;
+	public void setZyzgf(String zyzgf) {
+		this.zyzgf = zyzgf;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	public String getWenliType() {
 		return wenliType;
@@ -38,11 +40,11 @@ public class information {
 	public void setWenliType(String wenliType) {
 		this.wenliType = wenliType;
 	}
-	public String getBzType() {
-		return bzType;
+	public String getYear() {
+		return year;
 	}
-	public void setBzType(String bzType) {
-		this.bzType = bzType;
+	public void setYear(String year) {
+		this.year = year;
 	}
 	public String getPici() {
 		return pici;
@@ -50,19 +52,13 @@ public class information {
 	public void setPici(String pici) {
 		this.pici = pici;
 	}
-	public String getYear() {
-		return year;
-	}
-	public void setYear(String year) {
-		this.year = year;
-	}
-	String major;
-	String rank;
-	String score;
-	String total;
+	String school;
+	String zypjscore;
+	String zyzgf;
+	String location;
 	String wenliType;
-	String bzType;
-	String pici;
 	String year;
+	String pici;
+	
 	
 }
