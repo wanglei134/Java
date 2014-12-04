@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import org.htmlparser.NodeFilter;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.NodeClassFilter;
@@ -16,9 +17,9 @@ import org.htmlparser.util.NodeList;
 public class htmlParse {
 	public static void main(String [] args) throws UnsupportedEncodingException
 	{
-		StringBuffer buffer=readTxt.readTxtFile("e://1.txt");	
-		System.out.println(getCount(buffer.toString()));
-		parse(buffer);
+//		StringBuffer buffer=readTxt.readTxtFile("e://1.txt");	
+//		System.out.println(getCount(buffer.toString()));
+		//parse(buffer);
 	}
 	public static int getCount(String html) throws UnsupportedEncodingException
 	{
@@ -33,13 +34,13 @@ public class htmlParse {
 		str=str.substring(start+1);
 		return Integer.parseInt(str);
 	}
-	public static List<information> parse(StringBuffer html)
+	public static List<information> parse(String string)
 	{
 		List<information> info=new ArrayList<information>();
 		information data=null;
 		Parser parser=null;
 		try {
-		    parser = new Parser(html.toString());
+		    parser = new Parser(string.toString());
 			parser.setEncoding("utf-8");
 			NodeFilter filter = new NodeClassFilter(TableTag.class);
 			NodeList list = parser.extractAllNodesThatMatch(filter);

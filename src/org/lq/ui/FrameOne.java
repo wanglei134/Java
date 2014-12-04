@@ -11,27 +11,29 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
+import org.lq.util.DelFile;
 import org.lq.util.ScheduleJob;
 import org.lq.util.paras;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+
 import javax.swing.JProgressBar;
 
 public class FrameOne extends JFrame {
 
 	private JPanel contentPane;
-	private static JProgressBar progressBar;
 	private static JButton button=null ;
+	private static JLabel jindu;
+
+	public static JLabel getJindu() {
+		return jindu;
+	}
 
 	public static JButton getButton() {
 		return button;
 	}
-
-	public static JProgressBar getProgressBar() {
-		return progressBar;
-	}
-
 	/**
 	 * Launch the application.
 	 */
@@ -100,23 +102,33 @@ public class FrameOne extends JFrame {
 	    button = new JButton("\u5F00\u59CB");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DelFile.delAllFile("d:/data/temp1");
+				DelFile.delAllFile("d:/data/temp2");
 				String sy=syd.getSelectedItem().toString();
 				String klei=kl.getSelectedItem().toString();
 				String cc=xl.getSelectedItem().toString();
 				String ny=nf.getSelectedItem().toString();
-				new ScheduleJob(sy,klei,cc,ny).init();	
+				try {
+					new ScheduleJob(sy,klei,cc,ny).init();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 				button.setEnabled(false);
 			}
 		});
 		button.setBounds(147, 174, 224, 50);
 		contentPane.add(button);
 		
-	    progressBar = new JProgressBar();
-		progressBar.setBounds(95, 135, 368, 29);
-		contentPane.add(progressBar);
+	    jindu = new JLabel("\u53D6\u7F51\u9875");
+	    jindu.setBounds(129, 137, 96, 21);
+		contentPane.add(jindu);
 		
-		JLabel label_3 = new JLabel("\u8FDB\u5EA6\uFF1A");
-		label_3.setBounds(31, 149, 54, 15);
+		JLabel label_3 = new JLabel("\u5F53\u524D\u8FDB\u5EA6\uFF1A");
+		label_3.setBounds(31, 137, 68, 21);
 		contentPane.add(label_3);
 	}
 }
