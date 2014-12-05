@@ -11,6 +11,10 @@ import java.util.concurrent.Executors;
 
 import javax.swing.SwingUtilities;
 
+import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
+
 import org.htmlparser.lexer.Stream;
 import org.lq.ui.FrameOne;
 
@@ -123,6 +127,25 @@ public class ScheduleJob extends Thread{
 	        	subFile[i-1]=path;
 	        }
 	        MergeFile.mergeFiles("d:/data/"+this.syd+this.kl+this.cc+this.nf+".txt", subFile);
+	        String[] empty = { "", "", "", "", "","","","",""};
+	        try {
+				Excel.pushData(empty, this.syd+this.kl+this.cc+this.nf);
+			} catch (RowsExceededException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (WriteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BiffException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        FrameOne.getButton().setEnabled(true);
 	        //FrameOne.getJindu().setText("已经完成！");
 			//
