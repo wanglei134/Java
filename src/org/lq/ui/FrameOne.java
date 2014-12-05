@@ -25,11 +25,12 @@ public class FrameOne extends JFrame {
 
 	private JPanel contentPane;
 	private static JButton button=null ;
-	private static JLabel jindu;
+	private static JProgressBar progressBar ;
 
-	public static JLabel getJindu() {
-		return jindu;
+	public static JProgressBar getProgressBar() {
+		return progressBar;
 	}
+
 
 	public static JButton getButton() {
 		return button;
@@ -109,10 +110,7 @@ public class FrameOne extends JFrame {
 				String cc=xl.getSelectedItem().toString();
 				String ny=nf.getSelectedItem().toString();
 				try {
-					new ScheduleJob(sy,klei,cc,ny).init();
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new ScheduleJob(sy,klei,cc,ny).start();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -123,12 +121,12 @@ public class FrameOne extends JFrame {
 		button.setBounds(147, 174, 224, 50);
 		contentPane.add(button);
 		
-	    jindu = new JLabel("\u53D6\u7F51\u9875");
-	    jindu.setBounds(129, 137, 96, 21);
-		contentPane.add(jindu);
-		
 		JLabel label_3 = new JLabel("\u5F53\u524D\u8FDB\u5EA6\uFF1A");
 		label_3.setBounds(31, 137, 68, 21);
 		contentPane.add(label_3);
+		
+	    progressBar = new JProgressBar();
+		progressBar.setBounds(95, 137, 368, 21);
+		contentPane.add(progressBar);
 	}
 }
