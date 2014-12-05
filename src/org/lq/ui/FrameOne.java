@@ -39,6 +39,10 @@ public class FrameOne extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		/**
+		 * 这条语句可以不Block更新UI
+		 * 在其他地方需要Update主线程UI时，也这样处理就行了
+		 */
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
