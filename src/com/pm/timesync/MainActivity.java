@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -76,29 +78,36 @@ public class MainActivity extends Activity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				while(true){
+				while(true){	
 					try {
-						Thread.sleep(1000);
-						Message msg=new Message();
-						msg.what=2;
-						msg.obj=getTime();
-						interHandler.sendMessage(msg);
+						Thread.sleep(2000);						
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
+					Message msg=new Message();
+					msg.what=2;
+					msg.obj=getInternetTime();
+					interHandler.sendMessage(msg);					
 				}
 				
 			}
 		});
         //update internet
-	    
+        thread.start();	
+		interThread.start();
         syncButton.setOnClickListener(new Button.OnClickListener(){
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub								
-						thread.start();	
-						interThread.start();
+				Calendar c = Calendar.getInstance();
+				String interTime=(String) time2.getText();
+				String [] t1=interTime.split(" ");
+				String [] d=t1[0].split("-");
+				String [] d1=t1[1].split(":");
+				c.set(Integer.parseInt(d[1]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), Integer.parseInt(d1[0]),Integer.parseInt(d1[1]) ,Integer.parseInt(d1[2]));
+				AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+				am.setTime(c.getTimeInMillis());	
 				
 			}
 	    	
@@ -111,13 +120,21 @@ public class MainActivity extends Activity {
 		        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	         
 		        return format.format(date);
 	    }
-	 public static String getInternetTime() throws IOException{
-		   URL url=new URL("http://bjtime.cn/");//取得资源对象
-	       URLConnection uc=url.openConnection();//生成连接对象
-	       uc.connect(); //发出连接
-	       long ld=uc.getDate(); //取得网站日期时间
-	       SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
-	       Date date=new Date(ld); //转换为标准时间对象
-	       return "aaa"; //format.format(date);
+	 public static String getInternetTime() {
+		 SimpleDateFormat format=null;
+		 Date date=null;
+		   try {
+			   URL url=new URL("http://bjtime.cn/");//取得资源对象
+		       URLConnection uc=url.openConnection();//生成连接对象
+		       uc.connect(); //发出连接
+		       long ld=uc.getDate(); //取得网站日期时间
+		       format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
+		       date=new Date(ld); //转换为标准时间对象
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		  
+	       return format.format(date);
 	 }
 }

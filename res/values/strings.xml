@@ -9,5 +9,6 @@
     <string name="InternetTime">InternetTime:</string>
     <string name="empty"></string>
     <string name="Sync">Sync</string>
+    <string name="InterPermission">InterPermission</string>
 
 </resources>
