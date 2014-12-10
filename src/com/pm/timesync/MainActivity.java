@@ -10,10 +10,12 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -106,8 +108,11 @@ public class MainActivity extends Activity {
 				String [] d=t1[0].split("-");
 				String [] d1=t1[1].split(":");
 				c.set(Integer.parseInt(d[1]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), Integer.parseInt(d1[0]),Integer.parseInt(d1[1]) ,Integer.parseInt(d1[2]));
-				AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-				am.setTime(c.getTimeInMillis());	
+//				AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//				am.setTime(c.getTimeInMillis());
+				SystemClock.setCurrentTimeMillis(c.getTimeInMillis());
+				
+				
 				
 			}
 	    	
