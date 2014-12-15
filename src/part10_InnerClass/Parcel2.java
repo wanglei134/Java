@@ -38,7 +38,7 @@ public class Parcel2 {
 		// TODO Auto-generated method stub
 		Parcel2 p=new Parcel2();
 		p.ship("Polan");
-		Parcel2.Contents c=p.contents();
+		Contents c=p.contents();
 		Parcel2.Destination d=p.to("Italy");
 //		Polan
 
