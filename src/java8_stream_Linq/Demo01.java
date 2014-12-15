@@ -6,10 +6,14 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
+import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -243,8 +247,89 @@ public class Demo01 {
 //		boolean isThereAnyChild = persons.stream().
 //		 anyMatch(p -> p.getAge() < 12);
 //		System.out.println("Any child? " + isThereAnyChild);
-	}
+		/**
+		 * 自己生成流
+		 * Stream.generate
+		         通过实现 Supplier 接口，你可以自己来控制流的生成。
+		         这种情形通常用于随机数、常量的 Stream，或者需要前后元素间维持着某种状态信息的 Stream。
+		         把 Supplier 实例传递给 Stream.generate() 生成的 Stream，默认是串行（相对 parallel 而言）
+		         但无序的（相对 ordered 而言）。由于它是无限的，在管道中，必须利用 limit 之类的操作限制 Stream 大小。
+		 */
+		//生成10个随机数
+//		Random seed=new Random();
+//		Supplier<Integer> random=seed::nextInt;
+//		Stream.generate(random).limit(10)
+//		.forEach(System.out::println);
+		//自实现
+//		userDefinedSupplier();
+		/**
+		 * Stream.iterate
+		 * iterate 跟 reduce 操作很像，接受一个种子值，和一个 UnaryOperator（例如 f）。
+		 * 然后种子值成为 Stream 的第一个元素，f(seed) 为第二个，f(f(seed)) 第三个，以此类推。
+		 */
+		//生成一个等差数列
+//		Stream.iterate(0, n->n+3).limit(10)
+//		.forEach(x->System.out.print(x+" "));
+//		0 3 6 9 12 15 18 21 24 27
+		/**
+		 * 用Collectors来进行reduction操作
+		 * Java.util.Collectors类的主要作用就是辅助进行各类有用的reduction操作
+		 * 例如转标输出为Collection,把Stream元素进行归组
+		 */
+		//groupBy/partitioningBy
+		//按照年龄分组
+//		Stream.generate(new PersonSupplier())
+//				.limit(100)
+//				.collect(Collectors.groupingBy(Person::getNo))
+//				.entrySet().iterator()
+//				.forEachRemaining(x->System.out.println("Age:"+x.getKey()+" = "+x.getValue().size()));
+//		
+//		Age 0 = 9
+//		Age 1 = 11
+//		Age 2 = 5
+//		Age 3 = 11
+//		Age 4 = 6
+//		Age 5 = 9
+//		Age 6 = 14
+//		Age 7 = 19
+//		Age 8 = 8
+//		Age 9 = 8
+		//按照未成年人和成年人分组
+//		Stream.generate(new PersonSupplier()).
+//		 limit(100).
+//		 collect(Collectors.partitioningBy(p -> p.getNo() < 18))
+//		 .entrySet()
+//		 .iterator()
+//		 .forEachRemaining(x->System.out.println(x.getKey()+" "+x.getValue().size()));
+//		false 41
+//		true 59
+		/**
+		 * 
+		 总之，Stream 的特性可以归纳为：
+		不是数据结构
+		它没有内部存储，它只是用操作管道从 source（数据结构、数组、generator function、IO channel）抓取数据。
+		它也绝不修改自己所封装的底层数据结构的数据。例如 Stream 的 filter 操作会产生一个不包含被过滤元素的新 Stream，
+		而不是从 source 删除那些元素。
+		所有 Stream 的操作必须以 lambda 表达式为参数
+		不支持索引访问
+		你可以请求第一个元素，但无法请求第二个，第三个，或最后一个。不过请参阅下一项。
+		很容易生成数组或者 List
+		惰性化
+		很多 Stream 操作是向后延迟的，一直到它弄清楚了最后需要多少数据才会开始。
+		Intermediate 操作永远是惰性化的。
+		并行能力
+		当一个 Stream 是并行化的，就不需要再写多线程代码，所有对它的操作会自动并行进行的。
+		可以是无限的
+		集合有固定大小，Stream 则不必。limit(n) 和 findFirst() 
+		这类的 short-circuiting 操作可以对无限的 Stream 进行运算并很快完成。
+		 */
 
+	}
+    public static void userDefinedSupplier(){
+    	Stream.generate(new PersonSupplier())
+    	.limit(10)
+    	.forEach(p->System.out.println(p.getName()));
+    }
 	public static void print(String text) {
 		// java 8
 		Optional.ofNullable(text).ifPresent(System.out::println);
@@ -281,18 +366,29 @@ public class Demo01 {
 		System.out.println(personList2);
 	}
 
-	private class Person {
-		public int no;
+	public static class Person {
+		public int age;
 		private String name;
 
 		public Person(int no, String name) {
-			this.no = no;
+			this.age = no;
 			this.name = name;
 		}
-
-		public String getName() {
-			System.out.println(name);
+        public int getNo(){
+        	return age;
+        }
+		public String getName() {			
 			return name;
 		}
 	}
+	public static  class PersonSupplier implements Supplier<Person>{
+    	private int index=0;
+    	private Random random=new Random();
+		@Override
+		public Person get() {
+			// TODO Auto-generated method stub
+			return new Person(random.nextInt(30), "User:"+random.nextInt(100));
+		}
+    	
+    }
 }
