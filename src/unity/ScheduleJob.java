@@ -37,31 +37,41 @@ public class ScheduleJob {
 	}
 
 	public void InitSets() {
-		String config1=CompareFrame.getCongig1().getSelectedItem().toString();
-		String config2=CompareFrame.getConfig2().getSelectedItem().toString();
-		JTextArea s1,s2=new JTextArea();
-		s1=CompareFrame.getSet1();
-		s2=CompareFrame.getSet2();
-		funImple funImple=new funImple();
-		try {
-			String uuid1=funImple.GetUUid(config1);
-			String uuid2=funImple.GetUUid(config2);			
-			uuidlist1=funImple.GetAllSetUUid(uuid1);
-			uuidlist2=funImple.GetAllSetUUid(uuid2);
-			CompareFrame.getCount1().setText(uuidlist1.size()+"");
-			CompareFrame.getCount2().setText(uuidlist2.size()+"");
-			for (String id1 : uuidlist1) {
-				s1.append(funImple.GetSetName(id1));
-				s1.append("\n");
-			}
-			for (String id2 : uuidlist2) {
-				s2.append(funImple.GetSetName(id2));
-				s2.append("\n");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new Thread(
+				new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						String config1=CompareFrame.getCongig1().getSelectedItem().toString();
+						String config2=CompareFrame.getConfig2().getSelectedItem().toString();
+						JTextArea s1,s2=new JTextArea();
+						s1=CompareFrame.getSet1();
+						s2=CompareFrame.getSet2();
+						funImple funImple=new funImple();
+						try {
+							String uuid1=funImple.GetUUid(config1);
+							String uuid2=funImple.GetUUid(config2);			
+							uuidlist1=funImple.GetAllSetUUid(uuid1);
+							uuidlist2=funImple.GetAllSetUUid(uuid2);
+							CompareFrame.getCount1().setText(uuidlist1.size()+"");
+							CompareFrame.getCount2().setText(uuidlist2.size()+"");
+							for (String id1 : uuidlist1) {
+								s1.append(funImple.GetSetName(id1));
+								s1.append("\n");
+							}
+							for (String id2 : uuidlist2) {
+								s2.append(funImple.GetSetName(id2));
+								s2.append("\n");
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				).start();
+		
 	}
 
 	@SuppressWarnings("rawtypes")

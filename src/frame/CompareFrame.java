@@ -2,6 +2,7 @@ package frame;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -10,12 +11,22 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import unity.ScheduleJob;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class CompareFrame extends JFrame {
 	private JPanel contentPane;
@@ -24,6 +35,17 @@ public class CompareFrame extends JFrame {
 	private static JLabel count2;
 	private static JTextArea result ;
 	private static JLabel labelResult;
+	private static String [] lookAndFeel=new String[]{
+		"com.jtattoo.plaf.acryl.AcrylLookAndFeel",
+		"com.jtattoo.plaf.aero.AeroLookAndFeel",
+		"com.jtattoo.plaf.aluminium.AluminiumLookAndFeel",
+		"com.jtattoo.plaf.bernstein.BernsteinLookAndFeel",
+		"com.jtattoo.plaf.fast.FastLookAndFeel",
+		"com.jtattoo.plaf.hifi.HiFiLookAndFeel",
+		"com.jtattoo.plaf.luna.LunaLookAndFeel",
+		"com.jtattoo.plaf.mcwin.McWinLookAndFeel",
+		"com.jtattoo.plaf.mint.MintLookAndFeel",
+		"com.jtattoo.plaf.smart.SmartLookAndFeel"};
 	public static JLabel getLabelResult() {
 		return labelResult;
 	}
@@ -66,6 +88,22 @@ public class CompareFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					String lookAndFeel1="com.jtattoo.plaf.acryl.AcrylLookAndFeel";
+					UIManager.setLookAndFeel(lookAndFeel1);
+					} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					} catch (UnsupportedLookAndFeelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					}
+				try {
 					CompareFrame frame = new CompareFrame();					
 					new ScheduleJob().InitConfigName();
 					frame.setVisible(true);
@@ -87,7 +125,7 @@ public class CompareFrame extends JFrame {
 		contentPane = new JPanel();
 		
 		setContentPane(contentPane);
-		setTitle("Configuration Compare Tool V1.0 Pom");
+		setTitle("Configuration Compare Tool V1.2 Pom");
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Config1");
@@ -161,6 +199,32 @@ public class CompareFrame extends JFrame {
 		
 	    result = new JTextArea();
 		scrollPane_2.setViewportView(result);
+		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==1)
+				{
+					final int index=comboBox.getSelectedIndex();
+					EventQueue.invokeLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							try {
+								UIManager.setLookAndFeel(lookAndFeel[index]);
+								SwingUtilities.updateComponentTreeUI(getRootPane());
+							} catch (Exception e2) {
+								// TODO: handle exception
+							}
+						}
+					});					
+				}	
+			}
+		});
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"acryl", "aero", "aluminium", "bernstein", "fast", "hifi", "luna", "mcwin", "mint", "smart"}));
+		comboBox.setBounds(25, 436, 142, 20);
+		contentPane.add(comboBox);
 		btnGetsets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Set1.setText("");
