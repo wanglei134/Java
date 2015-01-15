@@ -7,12 +7,15 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.security.auth.login.FailedLoginException;
+import javax.swing.JComboBox;
 
 import frame.CompareFrame;
 import function.funImple;
 
 public class XmlCompare {
 	private ArrayList<String> uuid1,uuid2=new ArrayList<String>();
+	public static ArrayList<String> failedSetNameArrayListOfSet1=new ArrayList<String>();
+	public static ArrayList<String> failedSetNameArrayListOfSet2=new ArrayList<String>();
 	public XmlCompare(ArrayList<String> uuid1,ArrayList<String> uuid2)
 	{
 		this.uuid1=uuid1;
@@ -30,7 +33,7 @@ public class XmlCompare {
 						ConcurrentHashMap<String,String> xmlData2=new ConcurrentHashMap<String,String>();
 						ConcurrentHashMap<String,String> xmlDataA=new ConcurrentHashMap<String,String>();
 						ConcurrentHashMap<String,String> xmlDataB=new ConcurrentHashMap<String,String>();
-						ArrayList<String> failedSetNameArrayList=new ArrayList<String>();
+						
 						try {	
 							funImple f=new funImple();
 							for (String id : uuid1) {
@@ -70,10 +73,10 @@ public class XmlCompare {
 								if(flag==false)
 								{
 									System.out.println("Faile"+f.GetSetName(id1));
-									failedSetNameArrayList.add(f.GetSetName(id1));
+									failedSetNameArrayListOfSet1.add(f.GetSetName(id1));
 								}
 							}
-							failedSetNameArrayList.add("\n"+CompareFrame.getConfig2().getSelectedItem().toString());			
+							
 							//µ¹Ðò
 							Iterator secondIterator=xmlDataB.entrySet().iterator();
 							int j=1;
@@ -101,23 +104,33 @@ public class XmlCompare {
 								if(flag==false)
 								{
 									//System.out.println(f.GetSetName(id2));
-									failedSetNameArrayList.add(f.GetSetName(id2));
+									failedSetNameArrayListOfSet2.add(f.GetSetName(id2));
 								}
 							}		
 						} catch (Exception e) {
 							// TODO: handle exception
 							e.printStackTrace();
 						}
-						if(failedSetNameArrayList.size()==1)
+						if(failedSetNameArrayListOfSet1.size()==0&&failedSetNameArrayListOfSet2.size()==0)
 						{
 							//success
 							CompareFrame.getLabelResult().setText("Result:Success!");
 						}else {
-							CompareFrame.getLabelResult().setText("Result:"+(failedSetNameArrayList.size()-1)+" Failed!");
-							CompareFrame.getResult().append(CompareFrame.getCongig1().getSelectedItem().toString()+"\n");
-							for (String s : failedSetNameArrayList) {
+							
+							CompareFrame.getLabelResult().setText("Result:"+(failedSetNameArrayListOfSet1.size()+failedSetNameArrayListOfSet2.size())+" Failed!");
+							CompareFrame.getResult().append(CompareFrame.getCongig1().getSelectedItem().toString()+"\n\n");
+							for (String s : failedSetNameArrayListOfSet1) {
 								CompareFrame.getResult().append(s+"\n");
+								CompareFrame.getSet1ToCompare().addItem(s);
 							}
+							
+							CompareFrame.getResult().append("\n"+CompareFrame.getConfig2().getSelectedItem().toString()+"\n\n");
+							for (String s : failedSetNameArrayListOfSet2) {
+								CompareFrame.getResult().append(s+"\n");
+								CompareFrame.getSet2ToCompare().addItem(s);
+							}
+							
+							
 					}
 				}
 				}

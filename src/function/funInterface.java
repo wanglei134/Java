@@ -7,5 +7,7 @@ public interface funInterface {
 	public String GetSetName(String uUid) throws Exception;
 	public String GetSetNameByXml(String xml) throws Exception;
 	public String GetXml(String uUid) throws Exception;
+	public String GetSingleUUid(String setName) throws Exception;
+	public String GetSetType(String setName) throws Exception;
 	public ArrayList<String> GetAllSetUUid(String configUUid) throws Exception;	
 }

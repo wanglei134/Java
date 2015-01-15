@@ -14,7 +14,7 @@ public class DB {
 		try {
 			Class.forName(DBDriver);
 			this.conn=DriverManager.getConnection(DBUrl);
-			System.out.println("DB Connect Success!");
+			//System.out.println("DB Connect Success!");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

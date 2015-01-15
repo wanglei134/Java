@@ -1,6 +1,7 @@
 package frame;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -17,7 +18,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+import unity.Init;
 import unity.ScheduleJob;
+import unity.XmlCompare;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -25,14 +28,30 @@ import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
 
+import function.funImple;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CompareFrame extends JFrame {
 	private JPanel contentPane;
-	private static JComboBox Congig1 ;
+	private static JComboBox Congig1;
 	private static JComboBox Config2;
 	private static JLabel count2;
+	private static JLabel msg;
+	private static JComboBox Set1ToCompare;
+	public static JComboBox getSet1ToCompare() {
+		return Set1ToCompare;
+	}
+
+	public static JComboBox getSet2ToCompare() {
+		return set2ToCompare;
+	}
+
+	private static JComboBox set2ToCompare;
 	private static JTextArea result ;
 	private static JLabel labelResult;
 	private static String [] lookAndFeel=new String[]{
@@ -88,7 +107,7 @@ public class CompareFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					String lookAndFeel1="com.jtattoo.plaf.acryl.AcrylLookAndFeel";
+					String lookAndFeel1=Init.getThemeName();
 					UIManager.setLookAndFeel(lookAndFeel1);
 					} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -121,7 +140,7 @@ public class CompareFrame extends JFrame {
 	public CompareFrame() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 760, 510);
+		setBounds(100, 100, 809, 601);
 		contentPane = new JPanel();
 		
 		setContentPane(contentPane);
@@ -148,11 +167,11 @@ public class CompareFrame extends JFrame {
 		
 		JButton btnNewButton = new JButton("Compare");
 		
-		btnNewButton.setBounds(316, 247, 89, 54);
+		btnNewButton.setBounds(331, 249, 89, 54);
 		getContentPane().add(btnNewButton);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 98, 260, 232);
+		scrollPane.setBounds(25, 98, 285, 232);
 		getContentPane().add(scrollPane);
 		
 		Set1 = new JTextArea();
@@ -160,7 +179,7 @@ public class CompareFrame extends JFrame {
 		scrollPane.setViewportView(Set1);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(426, 98, 265, 232);
+		scrollPane_1.setBounds(454, 98, 296, 232);
 		getContentPane().add(scrollPane_1);
 		
 	    Set2 = new JTextArea();
@@ -172,12 +191,12 @@ public class CompareFrame extends JFrame {
 		contentPane.add(lblConfigsets);
 		
 		JLabel lblConfigsets_1 = new JLabel("Config2-Sets");
-		lblConfigsets_1.setBounds(444, 74, 89, 14);
+		lblConfigsets_1.setBounds(466, 74, 89, 14);
 		contentPane.add(lblConfigsets_1);
 		
 		JButton btnGetsets = new JButton("GetSets");
 		
-		btnGetsets.setBounds(316, 136, 89, 54);
+		btnGetsets.setBounds(331, 134, 89, 54);
 		contentPane.add(btnGetsets);
 		
 	    count1 = new JLabel("");
@@ -194,7 +213,7 @@ public class CompareFrame extends JFrame {
 		contentPane.add(labelResult);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(211, 341, 480, 115);
+		scrollPane_2.setBounds(211, 341, 539, 115);
 		contentPane.add(scrollPane_2);
 		
 	    result = new JTextArea();
@@ -214,6 +233,7 @@ public class CompareFrame extends JFrame {
 							try {
 								UIManager.setLookAndFeel(lookAndFeel[index]);
 								SwingUtilities.updateComponentTreeUI(getRootPane());
+								Init.setThemeName(lookAndFeel[index]);
 							} catch (Exception e2) {
 								// TODO: handle exception
 							}
@@ -225,6 +245,104 @@ public class CompareFrame extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"acryl", "aero", "aluminium", "bernstein", "fast", "hifi", "luna", "mcwin", "mint", "smart"}));
 		comboBox.setBounds(25, 436, 142, 20);
 		contentPane.add(comboBox);
+		
+		JLabel lblNewLabel_1 = new JLabel("CompareSet:");
+		lblNewLabel_1.setBounds(38, 500, 103, 14);
+		contentPane.add(lblNewLabel_1);
+		
+	    Set1ToCompare = new JComboBox();
+	    Set1ToCompare.addItemListener(new ItemListener() {
+	    	public void itemStateChanged(ItemEvent e) {
+	    		if(e.getStateChange()==1)
+				{
+	    			try {
+	    				set2ToCompare.removeAllItems();
+						String type1=new funImple().GetSetType(Set1ToCompare.getSelectedItem().toString());
+						ArrayList<String> set2fail=XmlCompare.failedSetNameArrayListOfSet2;
+						for (String s : set2fail) {
+							if(new funImple().GetSetType(s).equals(type1))
+							{
+								set2ToCompare.addItem(s);
+							}
+						}
+	    			
+	    			} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	    			
+	    			
+				}
+	    	}
+	    });
+		Set1ToCompare.setBounds(219, 497, 228, 20);
+		contentPane.add(Set1ToCompare);
+		
+		JLabel lblChooseASet = new JLabel("Choose a set from set1");
+		lblChooseASet.setBounds(221, 472, 199, 14);
+		contentPane.add(lblChooseASet);
+		
+		JLabel lblChooseASet_1 = new JLabel("Same Type set from set2");
+		lblChooseASet_1.setBounds(530, 467, 201, 14);
+		contentPane.add(lblChooseASet_1);
+		
+		set2ToCompare = new JComboBox();
+		set2ToCompare.setBounds(490, 497, 260, 20);
+		contentPane.add(set2ToCompare);
+		
+	    msg = new JLabel("msg");
+		msg.setFont(new Font("Tahoma", Font.BOLD, 12));
+		msg.setBounds(554, 528, 239, 29);
+		contentPane.add(msg);
+		
+		
+		JButton btnNewButton_1 = new JButton("CompareSet");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Set1ToCompare.getSelectedIndex()==-1||set2ToCompare.getSelectedIndex()==-1)
+				{
+					msg.setText("SetType not same or empty,ignore");
+				}else{
+					ArrayList<String> result=Init.compareSet(Set1ToCompare.getSelectedItem().toString(), set2ToCompare.getSelectedItem().toString());				
+					Init.writeFailedField(result);
+					Desktop desk=Desktop.getDesktop();
+					try
+					{
+					    File file=new File("c://fail.txt");//创建一个java文件系统
+					    desk.open(file); //调用open（File f）方法打开文件 
+					}catch(Exception e1)
+					{
+					    System.out.println(e1.toString());
+					}
+				}
+			}
+		});
+		btnNewButton_1.setBounds(377, 539, 156, 23);
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Refresh");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Set1.setText("");
+				Set2.setText("");				
+				count1.setText("");
+				count2.setText("");		
+				labelResult.setText("Result:");
+				result.setText("");
+				msg.setText("msg");
+				set2ToCompare.removeAllItems();
+				Set1ToCompare.removeAllItems();
+				Congig1.removeAllItems();
+				Config2.removeAllItems();
+				XmlCompare.failedSetNameArrayListOfSet1=new ArrayList<String>();
+				XmlCompare.failedSetNameArrayListOfSet2=new ArrayList<String>();
+				new ScheduleJob().InitConfigName();
+			}
+		});
+		btnNewButton_2.setBounds(704, 21, 89, 43);
+		contentPane.add(btnNewButton_2);
+		
+		
 		btnGetsets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Set1.setText("");
@@ -233,6 +351,9 @@ public class CompareFrame extends JFrame {
 				count2.setText("");		
 				labelResult.setText("Result:");
 				result.setText("");
+				msg.setText("msg");
+				set2ToCompare.removeAllItems();
+				Set1ToCompare.removeAllItems();
 				new ScheduleJob().InitSets();
 			}
 		});

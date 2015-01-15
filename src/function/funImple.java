@@ -95,7 +95,7 @@ public class funImple implements funInterface {
 	{
 		ArrayList<String> allSetUUid=new ArrayList<String>();
 		try {
-			allSetUUid=new funImple().GetAllSetUUid("6AAC6D80-8D74-E411-8B12-1C3E84FC1ABF");
+			allSetUUid=new funImple().GetAllSetUUid("D38B9355-F09B-E411-9170-1C3E84FC1ABF");
 			System.out.println(allSetUUid.size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -116,5 +116,33 @@ public class funImple implements funInterface {
 			SetName=(re.getString("SetName"));
 		}		
 		return SetName;			
+	}
+	@Override
+	public String GetSetType(String setName) throws Exception {
+		// TODO Auto-generated method stub
+		String setType="";
+		String sql="select SetType from SetEntities where SetName=?";
+		this.statement=this.conn.prepareStatement(sql);
+		this.statement.setString(1, setName);
+		ResultSet re=this.statement.executeQuery();
+		while(re.next())
+		{
+			setType=(re.getString("SetType"));
+		}
+		return setType;
+	}
+	@Override
+	public String GetSingleUUid(String setName) throws Exception {
+		// TODO Auto-generated method stub
+		String uid="";
+		String sql="select EntityUUId from SetEntities where SetName=?";
+		this.statement=this.conn.prepareStatement(sql);
+		this.statement.setString(1, setName);
+		ResultSet re=this.statement.executeQuery();
+		while(re.next())
+		{
+			uid=(re.getString("EntityUUId"));
+		}
+		return uid;
 	}
 }
