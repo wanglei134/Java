@@ -1,29 +1,32 @@
 package unity;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.rmi.server.ExportException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import frame.CompareFrame;
 import function.funImple;
 public class Init {
 	public static void main(String[] args) {
-		HashMap<String, String> map=parseXml("\"<ActionListItems A1=\"BTN_PRESS_FUNC_JOB_TICKETS\" A2=\"BTN_PRESS_FUNC_JOB_TICKETS\" />");
-		System.exit(0);
+		System.out.println(getMeteData().indexOf("GeneralSettings"));
 	}
 	//<ActionListItems A1="BTN_PRESS_FUNC_JOB_TICKETS" A2="BTN_PRESS_FUNC_JOB_TICKETS" />
-	public static HashMap<String, String> parseXml(String xml){
-		HashMap<String, String> map=new HashMap<String, String>();
+	public static ConcurrentHashMap<String, String> parseXml(String xml){
+		ConcurrentHashMap<String, String> map=new ConcurrentHashMap<String, String>();
 		xml=xml.substring(0,xml.length()-2);	
 		String [] temp=xml.split(" ");
 		for(int i=1;i<temp.length;i++)
@@ -45,14 +48,84 @@ public class Init {
 	}
 	public static ArrayList<String> compareSet(String setName1,String setName2)
 	{
-		HashMap<String, String> map1=new HashMap<String, String>();
-		HashMap<String, String> map2=new HashMap<String, String>();
+		ConcurrentHashMap<String, String> map1=new ConcurrentHashMap<String, String>();
+		ConcurrentHashMap<String, String> map2=new ConcurrentHashMap<String, String>();
 		ArrayList<String> list=new ArrayList<String>();
 		try {
 			String xml1=new funImple().GetXml(new funImple().GetSingleUUid(setName1));
 			String xml2=new funImple().GetXml(new funImple().GetSingleUUid(setName2));
 			map1=parseXml(xml1);
 			map2=parseXml(xml2);
+			//处理fieldName 问题
+			//map1
+			Iterator temp1=map1.entrySet().iterator();
+			String setname_=CompareFrame.getSet1ToCompare().getSelectedItem().toString();
+			StringBuffer buffer=getMeteData();
+			String setType=new funImple().GetSetType(setname_);
+			int index=buffer.indexOf(setType);
+			String buf1=buffer.substring(index);
+			int setend=buf1.indexOf("</Set>");
+			buf1=buf1.substring(0,setend);
+			while(temp1.hasNext()){
+				Map.Entry entry = (Map.Entry) temp1.next();
+				String key=(String) entry.getKey();
+				String value=(String) entry.getValue();
+				if(key.length()==2)
+				{
+					int indexOftag=buf1.indexOf("RMFieldName=\""+key+"\"");
+					String buf2="";
+					try {
+						buf2=buf1.substring(0,indexOftag);
+					} catch (IndexOutOfBoundsException e) {
+						// TODO: handle exception
+						continue;
+					}
+					
+					int lastIndex=buf2.lastIndexOf("BLLFieldName");
+					String realFieldName=buf2.substring(lastIndex).split("=")[1];
+					//System.out.println(realFieldName+"="+value);
+					map1.remove(key);
+					map1.put(realFieldName, value);
+				}else{
+					continue;
+				}
+				
+			}
+			//map2
+			Iterator temp2=map2.entrySet().iterator();
+			String setname_1=CompareFrame.getSet2ToCompare().getSelectedItem().toString();			
+			String setType2=new funImple().GetSetType(setname_1);
+			index=buffer.indexOf(setType2);
+			String buf2=buffer.substring(index);
+			int setend2=buf2.indexOf("</Set>");
+			buf1=buf1.substring(0,setend2);
+			while(temp2.hasNext()){
+				Map.Entry entry = (Map.Entry) temp2.next();
+				String key=(String) entry.getKey();
+				String value=(String) entry.getValue();
+				if(key.length()==2)
+				{
+					int indexOftag=buf2.indexOf("RMFieldName=\""+key+"\"");
+					String bufb="";
+					try {
+						bufb=buf2.substring(0,indexOftag);
+					} catch (IndexOutOfBoundsException e) {
+						// TODO: handle exception
+						continue;
+					}
+					
+					int lastIndex=bufb.lastIndexOf("BLLFieldName");
+					String realFieldName=bufb.substring(lastIndex).split("=")[1];
+					//System.out.println(realFieldName+"="+value);
+					map2.remove(key);
+					map2.put(realFieldName, value);
+				}else{
+					continue;
+				}
+				
+			}
+			
+			//处理FieldName问题
 			Iterator it1=null;
 			if(map1.size()>=map2.size())
 			{
@@ -164,6 +237,28 @@ public class Init {
 			e.printStackTrace();
 		}
 		
+	}
+	public static StringBuffer getMeteData(){
+		StringBuffer buffer=new StringBuffer();
+	    File file = new File("d://totalMetaData.xml");
+	    BufferedInputStream fis;
+		try {
+			fis = new BufferedInputStream(new FileInputStream(file),1024*1024);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+			String temp="";
+			while((temp=reader.readLine())!=null){
+				buffer.append(temp);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // 用缓冲读取
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+		return buffer;
 	}
 	public static String getThemeName(){
 		String name="com.jtattoo.plaf.acryl.AcrylLookAndFeel";
