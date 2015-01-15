@@ -126,8 +126,9 @@ public class XmlCompare {
 							
 							CompareFrame.getResult().append("\n"+CompareFrame.getConfig2().getSelectedItem().toString()+"\n\n");
 							for (String s : failedSetNameArrayListOfSet2) {
+								System.out.println(s);
 								CompareFrame.getResult().append(s+"\n");
-								CompareFrame.getSet2ToCompare().addItem(s);
+								//CompareFrame.getSet2ToCompare().addItem(s);
 							}
 							
 							

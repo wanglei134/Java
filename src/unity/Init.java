@@ -62,6 +62,7 @@ public class Init {
 			String setname_=CompareFrame.getSet1ToCompare().getSelectedItem().toString();
 			StringBuffer buffer=getMeteData();
 			String setType=new funImple().GetSetType(setname_);
+			setType="SetType=\""+setType+"\"";
 			int index=buffer.indexOf(setType);
 			String buf1=buffer.substring(index);
 			int setend=buf1.indexOf("</Set>");
@@ -95,6 +96,8 @@ public class Init {
 			Iterator temp2=map2.entrySet().iterator();
 			String setname_1=CompareFrame.getSet2ToCompare().getSelectedItem().toString();			
 			String setType2=new funImple().GetSetType(setname_1);
+			//SetType="RadioWide"
+			setType2="SetType=\""+setType2+"\"";
 			index=buffer.indexOf(setType2);
 			String buf2=buffer.substring(index);
 			int setend2=buf2.indexOf("</Set>");
@@ -197,12 +200,12 @@ public class Init {
 		}
 		try {
 			BufferedWriter writer=new BufferedWriter(new FileWriter(f));
-			writer.write(addZeroForNum(CompareFrame.getCongig1().getSelectedItem().toString(),20)+","+
-					     addZeroForNum(CompareFrame.getConfig2().getSelectedItem().toString(),20));
+			writer.write(addZeroForNum(CompareFrame.getCongig1().getSelectedItem().toString(),30)+","+
+					     addZeroForNum(CompareFrame.getConfig2().getSelectedItem().toString(),30));
 			writer.write(13);
 			writer.write(10);
 			for (String s : list) {
-				writer.write(addZeroForNum(s,20));
+				writer.write(addZeroForNum(s,30));
 				writer.write(13);
 				writer.write(10);
 			}
