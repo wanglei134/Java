@@ -42,6 +42,13 @@ public class CompareFrame extends JFrame {
 	private static JComboBox Config2;
 	private static JLabel count2;
 	private static JLabel msg;
+	private JComboBox typeofreport;
+	private JButton reportButton;
+	private static JProgressBar progressBar;
+	public static JProgressBar getProgressBar() {
+		return progressBar;
+	}
+
 	private static JComboBox Set1ToCompare;
 	public static JComboBox getSet1ToCompare() {
 		return Set1ToCompare;
@@ -109,6 +116,8 @@ public class CompareFrame extends JFrame {
 				try {
 					String lookAndFeel1=Init.getThemeName();
 					UIManager.setLookAndFeel(lookAndFeel1);
+					
+					
 					} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -140,7 +149,7 @@ public class CompareFrame extends JFrame {
 	public CompareFrame() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 809, 601);
+		setBounds(100, 100, 809, 634);
 		contentPane = new JPanel();
 		
 		setContentPane(contentPane);
@@ -243,7 +252,7 @@ public class CompareFrame extends JFrame {
 			}
 		});
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"acryl", "aero", "aluminium", "bernstein", "fast", "hifi", "luna", "mcwin", "mint", "smart"}));
-		comboBox.setBounds(25, 436, 142, 20);
+		comboBox.setBounds(25, 464, 142, 20);
 		contentPane.add(comboBox);
 		
 		JLabel lblNewLabel_1 = new JLabel("CompareSet:");
@@ -257,14 +266,33 @@ public class CompareFrame extends JFrame {
 				{
 	    			try {
 	    				set2ToCompare.removeAllItems();
-						String type1=new funImple().GetSetType(Set1ToCompare.getSelectedItem().toString());
-						ArrayList<String> set2fail=XmlCompare.failedSetNameArrayListOfSet2;
-						for (String s : set2fail) {
-							if(new funImple().GetSetType(s).equals(type1))
-							{
-								set2ToCompare.addItem(s);
+	    				new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								String type1="";
+								try {
+									type1 = new funImple().GetSetType(Set1ToCompare.getSelectedItem().toString());
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								ArrayList<String> set2fail=XmlCompare.failedSetNameArrayListOfSet2;
+								for (String s : set2fail) {
+									try {
+										if(new funImple().GetSetType(s).equals(type1))
+										{
+											set2ToCompare.addItem(s);
+										}
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
 							}
-						}
+						}).start();
+						
 	    			
 	    			} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -292,9 +320,13 @@ public class CompareFrame extends JFrame {
 		
 	    msg = new JLabel("msg");
 		msg.setFont(new Font("Tahoma", Font.BOLD, 12));
-		msg.setBounds(554, 528, 239, 29);
+		msg.setBounds(492, 566, 258, 29);
 		contentPane.add(msg);
 		
+		progressBar = new JProgressBar();
+		progressBar.setMinimum(0);
+		progressBar.setBounds(219, 528, 228, 34);
+		contentPane.add(progressBar);
 		
 		JButton btnNewButton_1 = new JButton("CompareSet");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -304,20 +336,44 @@ public class CompareFrame extends JFrame {
 					msg.setText("SetType not same or empty,ignore");
 				}else{
 					ArrayList<String> result=Init.compareSet(Set1ToCompare.getSelectedItem().toString(), set2ToCompare.getSelectedItem().toString());				
-					Init.writeFailedField(result);
-					Desktop desk=Desktop.getDesktop();
-					try
+					String saveType=typeofreport.getSelectedItem().toString();
+					if(saveType.equals("Txt"))
 					{
-					    File file=new File("c://fail.txt");//创建一个java文件系统
-					    desk.open(file); //调用open（File f）方法打开文件 
-					}catch(Exception e1)
-					{
-					    System.out.println(e1.toString());
+						Init.writeFailedField(result);
+						progressBar.setMaximum(10);
+						progressBar.setValue(10);
+						/*Desktop desk=Desktop.getDesktop();
+						try
+						{
+						    File file=new File("c://fail.txt");//创建一个java文件系统
+						    desk.open(file); //调用open（File f）方法打开文件 
+						}catch(Exception e1)
+						{
+						    System.out.println(e1.toString());
+						}*/	
+					}else{
+						String filepath ="c://FailedResults.xls";						
+						File f=new File(filepath);
+						if(f.exists())
+							f.delete();
+						progressBar.setMaximum(result.size());
+						progressBar.setValue(0);						
+						Init.writeToExcel(result);
+						/*Desktop desk=Desktop.getDesktop();
+						try
+						{
+						    File file=new File("c://FailedResults.xls");//创建一个java文件系统
+						    desk.open(file); //调用open（File f）方法打开文件 
+						}catch(Exception e1)
+						{
+						    System.out.println(e1.toString());
+						}*/	
 					}
+					
 				}
 			}
 		});
-		btnNewButton_1.setBounds(377, 539, 156, 23);
+		btnNewButton_1.setBounds(490, 528, 140, 34);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Refresh");
@@ -341,6 +397,56 @@ public class CompareFrame extends JFrame {
 		});
 		btnNewButton_2.setBounds(704, 21, 89, 43);
 		contentPane.add(btnNewButton_2);
+		
+		JLabel lblBackgroundsetting = new JLabel("BackGroundSetting");
+		lblBackgroundsetting.setBounds(25, 442, 103, 14);
+		contentPane.add(lblBackgroundsetting);
+		
+	    typeofreport = new JComboBox();
+		typeofreport.setModel(new DefaultComboBoxModel(new String[] {"Txt", "Excel"}));
+		typeofreport.setBounds(100, 542, 67, 20);
+		contentPane.add(typeofreport);
+		
+		JLabel lblReporttype = new JLabel("ReportType");
+		lblReporttype.setBounds(23, 543, 67, 14);
+		contentPane.add(lblReporttype);
+		
+		
+		
+		JLabel lblNewLabel_2 = new JLabel("WriteProgress");
+		lblNewLabel_2.setBounds(263, 566, 119, 29);
+		contentPane.add(lblNewLabel_2);
+		
+		reportButton = new JButton("OpenReport");
+		reportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String saveType=typeofreport.getSelectedItem().toString();
+				if(saveType.equals("Txt"))
+				{					
+					Desktop desk=Desktop.getDesktop();
+					try
+					{
+					    File file=new File("c://fail.txt");//创建一个java文件系统
+					    desk.open(file); //调用open（File f）方法打开文件 
+					}catch(Exception e1)
+					{
+					    System.out.println(e1.toString());
+					}
+				}else{
+					Desktop desk=Desktop.getDesktop();
+					try
+					{
+					    File file=new File("c://FailedResults.xls");//创建一个java文件系统
+					    desk.open(file); //调用open（File f）方法打开文件 
+					}catch(Exception e1)
+					{
+					    System.out.println(e1.toString());
+					}
+				}
+			}
+		});
+		reportButton.setBounds(642, 528, 108, 34);
+		contentPane.add(reportButton);
 		
 		
 		btnGetsets.addActionListener(new ActionListener() {

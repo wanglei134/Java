@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.server.ExportException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +19,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.swing.SwingUtilities;
+
+import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 import frame.CompareFrame;
 import function.funImple;
 public class Init {
@@ -145,19 +151,19 @@ public class Init {
 						if(!map2.get(fieldName).equals(fieldValue))
 						{
 							//System.out.println((fieldName+"="+fieldValue+","+fieldName+"="+map2.get(fieldName)));
-							list.add(fieldName+"="+fieldValue+","+fieldName+"="+map2.get(fieldName));
+							list.add(fieldName+"="+fieldValue+","+map2.get(fieldName));
 						}
 					}else{
 						if(!map1.get(fieldName).equals(fieldValue))
 						{
 							//System.out.println((fieldName+"="+fieldValue+","+fieldName+"="+map2.get(fieldName)));
-							list.add(fieldName+"="+fieldValue+","+fieldName+"="+map1.get(fieldName));
+							list.add(fieldName+"="+fieldValue+","+map1.get(fieldName));
 						}
 					}
 					
 				} catch (NullPointerException e) {
 					// TODO: handle exception
-					list.add(fieldName+"="+fieldValue+","+fieldName+"=MVO Default Value");
+					list.add(fieldName+"="+fieldValue+","+"=MVO Default Value");
 				}
 				
 			}
@@ -186,6 +192,50 @@ public class Init {
 	     }
 	     return str;
 	 }
+	public static void writeToExcel(final ArrayList<String> list)
+	{
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				String[] data=new String[3];
+				for (String s : list) {
+					data[0]=s.split("=")[0];
+					data[1]=s.split("=")[1].split(",")[0];
+					data[2]=s.split("=")[1].split(",")[1];
+				try {
+					Excel.pushData(data);	
+					SwingUtilities.invokeLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							CompareFrame.getProgressBar().setValue(
+									CompareFrame.getProgressBar().getValue()+1);
+						}
+					});
+				} catch (RowsExceededException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (WriteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (BiffException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				}
+			}
+		}).start();
+		
+	}
 	public static void writeFailedField(ArrayList<String> list)
 	{
 		File f=new File("c://fail.txt");
@@ -200,12 +250,12 @@ public class Init {
 		}
 		try {
 			BufferedWriter writer=new BufferedWriter(new FileWriter(f));
-			writer.write(addZeroForNum(CompareFrame.getCongig1().getSelectedItem().toString(),30)+","+
-					     addZeroForNum(CompareFrame.getConfig2().getSelectedItem().toString(),30));
+			writer.write(CompareFrame.getCongig1().getSelectedItem().toString()+","+
+					     CompareFrame.getConfig2().getSelectedItem().toString());
 			writer.write(13);
 			writer.write(10);
 			for (String s : list) {
-				writer.write(addZeroForNum(s,30));
+				writer.write(s);
 				writer.write(13);
 				writer.write(10);
 			}
