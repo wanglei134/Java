@@ -78,7 +78,7 @@ public class Excel {
 	 * @throws WriteException
 	 * @throws RowsExceededException
 	 */
-	public static void addExcel(File file, String[] args) throws BiffException,
+	public synchronized static void addExcel(File file, String[] args) throws BiffException,
 			IOException, RowsExceededException, WriteException {
 		Workbook book = Workbook.getWorkbook(file);
 		Sheet sheet = book.getSheet(0);

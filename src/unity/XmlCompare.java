@@ -8,19 +8,33 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.security.auth.login.FailedLoginException;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 import frame.CompareFrame;
 import function.funImple;
 
 public class XmlCompare {
-	private ArrayList<String> uuid1,uuid2=new ArrayList<String>();
+	public  static ArrayList<String> uuid1,uuid2=new ArrayList<String>();
 	public static ArrayList<String> failedSetNameArrayListOfSet1=new ArrayList<String>();
 	public static ArrayList<String> failedSetNameArrayListOfSet2=new ArrayList<String>();
-	public XmlCompare(ArrayList<String> uuid1,ArrayList<String> uuid2)
-	{
-		this.uuid1=uuid1;
-		this.uuid2=uuid2;		
+	private static XmlCompare xmlInstance=null;
+	private XmlCompare(){
+		
 	}
+	public static XmlCompare getInstance(ArrayList<String> id1,ArrayList<String> id2){
+		if(xmlInstance==null)
+			{
+				xmlInstance=new XmlCompare();
+			}
+		uuid1=id1;
+		uuid2=id2;
+		return xmlInstance;
+	}
+//	public XmlCompare(ArrayList<String> uuid1,ArrayList<String> uuid2)
+//	{
+//		this.uuid1=uuid1;
+//		this.uuid2=uuid2;		
+//	}
 	public void Check()
 	{
 		new Thread(
@@ -32,8 +46,7 @@ public class XmlCompare {
 						ConcurrentHashMap<String,String> xmlData1=new ConcurrentHashMap<String,String>();
 						ConcurrentHashMap<String,String> xmlData2=new ConcurrentHashMap<String,String>();
 						ConcurrentHashMap<String,String> xmlDataA=new ConcurrentHashMap<String,String>();
-						ConcurrentHashMap<String,String> xmlDataB=new ConcurrentHashMap<String,String>();
-						
+						ConcurrentHashMap<String,String> xmlDataB=new ConcurrentHashMap<String,String>();			
 						try {	
 							funImple f=new funImple();
 							for (String id : uuid1) {
@@ -66,7 +79,7 @@ public class XmlCompare {
 										flag=true;	
 										System.out.println("Pass");
 										xmlData2.remove(key);
-										break;
+										break;																
 									}
 									
 								}
@@ -116,7 +129,10 @@ public class XmlCompare {
 							//success
 							CompareFrame.getLabelResult().setText("Result:Success!");
 						}else {
-							
+							//remove before
+							CompareFrame.getSet1ToCompare().removeAllItems();
+						    CompareFrame.getResult().setText("");
+							//
 							CompareFrame.getLabelResult().setText("Result:"+(failedSetNameArrayListOfSet1.size()+failedSetNameArrayListOfSet2.size())+" Failed!");
 							CompareFrame.getResult().append(CompareFrame.getCongig1().getSelectedItem().toString()+"\n\n");
 							for (String s : failedSetNameArrayListOfSet1) {

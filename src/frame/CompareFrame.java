@@ -39,11 +39,13 @@ import java.util.HashMap;
 public class CompareFrame extends JFrame {
 	private JPanel contentPane;
 	private static JComboBox Congig1;
+	private static CompareFrame frame;
 	private static JComboBox Config2;
 	private static JLabel count2;
+	private String []enableType=new String[2];
 	private static JLabel msg;
 	private JComboBox typeofreport;
-	private JButton reportButton;
+	private static JButton reportButton;
 	private static JProgressBar progressBar;
 	public static JProgressBar getProgressBar() {
 		return progressBar;
@@ -115,9 +117,7 @@ public class CompareFrame extends JFrame {
 			public void run() {
 				try {
 					String lookAndFeel1=Init.getThemeName();
-					UIManager.setLookAndFeel(lookAndFeel1);
-					
-					
+					UIManager.setLookAndFeel(lookAndFeel1);						
 					} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -132,7 +132,7 @@ public class CompareFrame extends JFrame {
 					e.printStackTrace();
 					}
 				try {
-					CompareFrame frame = new CompareFrame();					
+				    frame = new CompareFrame();					
 					new ScheduleJob().InitConfigName();
 					frame.setVisible(true);
 					
@@ -153,7 +153,7 @@ public class CompareFrame extends JFrame {
 		contentPane = new JPanel();
 		
 		setContentPane(contentPane);
-		setTitle("Configuration Compare Tool V1.2 Pom");
+		setTitle("Configuration Compare Tool V1.3 Pom");
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Config1");
@@ -229,28 +229,7 @@ public class CompareFrame extends JFrame {
 		scrollPane_2.setViewportView(result);
 		
 		final JComboBox comboBox = new JComboBox();
-		comboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getStateChange()==1)
-				{
-					final int index=comboBox.getSelectedIndex();
-					EventQueue.invokeLater(new Runnable() {
-						
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							try {
-								UIManager.setLookAndFeel(lookAndFeel[index]);
-								SwingUtilities.updateComponentTreeUI(getRootPane());
-								Init.setThemeName(lookAndFeel[index]);
-							} catch (Exception e2) {
-								// TODO: handle exception
-							}
-						}
-					});					
-				}	
-			}
-		});
+		
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"acryl", "aero", "aluminium", "bernstein", "fast", "hifi", "luna", "mcwin", "mint", "smart"}));
 		comboBox.setBounds(25, 464, 142, 20);
 		contentPane.add(comboBox);
@@ -260,49 +239,7 @@ public class CompareFrame extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 	    Set1ToCompare = new JComboBox();
-	    Set1ToCompare.addItemListener(new ItemListener() {
-	    	public void itemStateChanged(ItemEvent e) {
-	    		if(e.getStateChange()==1)
-				{
-	    			try {
-	    				set2ToCompare.removeAllItems();
-	    				new Thread(new Runnable() {
-							
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								String type1="";
-								try {
-									type1 = new funImple().GetSetType(Set1ToCompare.getSelectedItem().toString());
-								} catch (Exception e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								ArrayList<String> set2fail=XmlCompare.failedSetNameArrayListOfSet2;
-								for (String s : set2fail) {
-									try {
-										if(new funImple().GetSetType(s).equals(type1))
-										{
-											set2ToCompare.addItem(s);
-										}
-									} catch (Exception e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-								}
-							}
-						}).start();
-						
-	    			
-	    			} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-	    			
-	    			
-				}
-	    	}
-	    });
+	   
 		Set1ToCompare.setBounds(219, 497, 228, 20);
 		contentPane.add(Set1ToCompare);
 		
@@ -329,72 +266,12 @@ public class CompareFrame extends JFrame {
 		contentPane.add(progressBar);
 		
 		JButton btnNewButton_1 = new JButton("CompareSet");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(Set1ToCompare.getSelectedIndex()==-1||set2ToCompare.getSelectedIndex()==-1)
-				{
-					msg.setText("SetType not same or empty,ignore");
-				}else{
-					ArrayList<String> result=Init.compareSet(Set1ToCompare.getSelectedItem().toString(), set2ToCompare.getSelectedItem().toString());				
-					String saveType=typeofreport.getSelectedItem().toString();
-					if(saveType.equals("Txt"))
-					{
-						Init.writeFailedField(result);
-						progressBar.setMaximum(10);
-						progressBar.setValue(10);
-						/*Desktop desk=Desktop.getDesktop();
-						try
-						{
-						    File file=new File("c://fail.txt");//创建一个java文件系统
-						    desk.open(file); //调用open（File f）方法打开文件 
-						}catch(Exception e1)
-						{
-						    System.out.println(e1.toString());
-						}*/	
-					}else{
-						String filepath ="c://FailedResults.xls";						
-						File f=new File(filepath);
-						if(f.exists())
-							f.delete();
-						progressBar.setMaximum(result.size());
-						progressBar.setValue(0);						
-						Init.writeToExcel(result);
-						/*Desktop desk=Desktop.getDesktop();
-						try
-						{
-						    File file=new File("c://FailedResults.xls");//创建一个java文件系统
-						    desk.open(file); //调用open（File f）方法打开文件 
-						}catch(Exception e1)
-						{
-						    System.out.println(e1.toString());
-						}*/	
-					}
-					
-				}
-			}
-		});
+		
 		btnNewButton_1.setBounds(490, 528, 140, 34);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Refresh");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Set1.setText("");
-				Set2.setText("");				
-				count1.setText("");
-				count2.setText("");		
-				labelResult.setText("Result:");
-				result.setText("");
-				msg.setText("msg");
-				set2ToCompare.removeAllItems();
-				Set1ToCompare.removeAllItems();
-				Congig1.removeAllItems();
-				Config2.removeAllItems();
-				XmlCompare.failedSetNameArrayListOfSet1=new ArrayList<String>();
-				XmlCompare.failedSetNameArrayListOfSet2=new ArrayList<String>();
-				new ScheduleJob().InitConfigName();
-			}
-		});
+		
 		btnNewButton_2.setBounds(704, 21, 89, 43);
 		contentPane.add(btnNewButton_2);
 		
@@ -403,6 +280,7 @@ public class CompareFrame extends JFrame {
 		contentPane.add(lblBackgroundsetting);
 		
 	    typeofreport = new JComboBox();
+	   
 		typeofreport.setModel(new DefaultComboBoxModel(new String[] {"Txt", "Excel"}));
 		typeofreport.setBounds(100, 542, 67, 20);
 		contentPane.add(typeofreport);
@@ -418,6 +296,11 @@ public class CompareFrame extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		reportButton = new JButton("OpenReport");
+		reportButton.setEnabled(false);
+		
+		reportButton.setBounds(642, 528, 108, 34);
+		contentPane.add(reportButton);
+		
 		reportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String saveType=typeofreport.getSelectedItem().toString();
@@ -445,9 +328,57 @@ public class CompareFrame extends JFrame {
 				}
 			}
 		});
-		reportButton.setBounds(642, 528, 108, 34);
-		contentPane.add(reportButton);
 		
+		 typeofreport.addItemListener(new ItemListener() {
+		    	public void itemStateChanged(ItemEvent e) {
+		    		reportButton.setEnabled(false);  		
+		    		if(e.getStateChange()==1){
+		    			if(enableType[0]!=null)
+		    			{
+		    				if(enableType[0].equals(Set1ToCompare.getSelectedItem().toString()+"Txt")&&typeofreport.getSelectedItem().toString().equals("Txt")){
+			    				reportButton.setEnabled(true);
+			    			}else if(enableType[0].equals(Set1ToCompare.getSelectedItem().toString()+"Excel")&&typeofreport.getSelectedItem().toString().equals("Excel")){
+			    				reportButton.setEnabled(true);
+			    			}
+		    			}
+		    			if(enableType[1]!=null){
+		    				if(enableType[1].equals(Set1ToCompare.getSelectedItem().toString()+"Txt")&&typeofreport.getSelectedItem().toString().equals("Txt")){
+			    				reportButton.setEnabled(true);
+			    			}else if(enableType[1].equals(Set1ToCompare.getSelectedItem().toString()+"Excel")&&typeofreport.getSelectedItem().toString().equals("Excel")){
+			    				reportButton.setEnabled(true);
+			    			}
+		    			}
+		    			
+//		    			if(!typeofreport.getSelectedItem().toString().equals(enableType)){
+//		    				reportButton.setEnabled(false);
+//		    			}else{
+//		    				reportButton.setEnabled(true);
+//		    			}
+		    		}
+		    	}
+		    });
+		 
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Set1.setText("");
+				Set2.setText("");				
+				count1.setText("");
+				count2.setText("");		
+				labelResult.setText("Result:");
+				result.setText("");
+				msg.setText("msg");
+				set2ToCompare.removeAllItems();
+				Set1ToCompare.removeAllItems();
+				Congig1.removeAllItems();
+				Config2.removeAllItems();
+				progressBar.setValue(0);
+				XmlCompare.failedSetNameArrayListOfSet1=new ArrayList<String>();
+				XmlCompare.failedSetNameArrayListOfSet2=new ArrayList<String>();
+				enableType=new String[2];
+				reportButton.setEnabled(false);
+				new ScheduleJob().InitConfigName();
+			}
+		});
 		
 		btnGetsets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -464,8 +395,149 @@ public class CompareFrame extends JFrame {
 			}
 		});
 		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(Set1ToCompare.getSelectedIndex()==-1||
+							set2ToCompare.getSelectedIndex()==-1||(
+							!(new funImple().GetSetType(Set1ToCompare.getSelectedItem().toString())).equals(
+							(new funImple().GetSetType(set2ToCompare.getSelectedItem().toString())))))
+					{
+						msg.setText("SetType not same or empty,ignore");
+						reportButton.setEnabled(false);
+					}else{
+						reportButton.setEnabled(true);
+						ArrayList<String> result1=Init.compareSet(Set1ToCompare.getSelectedItem().toString(), set2ToCompare.getSelectedItem().toString());	
+						ArrayList<String> result=Init.getRealFieldName(result1);
+						String saveType=typeofreport.getSelectedItem().toString();
+						if(saveType.equals("Txt"))
+						{
+							if(enableType[0]==null){
+								enableType[0]=Set1ToCompare.getSelectedItem().toString()+"Txt";
+							}else{
+								enableType[1]=Set1ToCompare.getSelectedItem().toString()+"Txt";
+							}
+							Init.writeFailedField(result);
+							progressBar.setMaximum(10);
+							progressBar.setValue(10);
+							/*Desktop desk=Desktop.getDesktop();
+							try
+							{
+							    File file=new File("c://fail.txt");//创建一个java文件系统
+							    desk.open(file); //调用open（File f）方法打开文件 
+							}catch(Exception e1)
+							{
+							    System.out.println(e1.toString());
+							}*/	
+						}else{
+							String filepath ="c://FailedResults.xls";
+							if(enableType[0]==null){
+								enableType[0]=Set1ToCompare.getSelectedItem().toString()+"Excel";
+							}else{
+								enableType[1]=Set1ToCompare.getSelectedItem().toString()+"Excel";
+							}
+							File f=new File(filepath);
+							if(f.exists())
+								f.delete();
+							progressBar.setMaximum(result.size());
+							progressBar.setValue(0);						
+							Init.writeToExcel(result);
+							/*Desktop desk=Desktop.getDesktop();
+							try
+							{
+							    File file=new File("c://FailedResults.xls");//创建一个java文件系统
+							    desk.open(file); //调用open（File f）方法打开文件 
+							}catch(Exception e1)
+							{
+							    System.out.println(e1.toString());
+							}*/	
+						}
+						
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==1)
+				{
+					final int index=comboBox.getSelectedIndex();
+					EventQueue.invokeLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							try {
+								UIManager.setLookAndFeel(lookAndFeel[index]);
+								SwingUtilities.updateComponentTreeUI(getRootPane());
+								Init.setThemeName(lookAndFeel[index]);
+								frame.repaint();
+							} catch (Exception e2) {
+								// TODO: handle exception
+							}
+						}
+					});					
+				}	
+			}
+		});
+		
+		 Set1ToCompare.addItemListener(new ItemListener() {
+		    	public void itemStateChanged(ItemEvent e) {
+		    		if(e.getStateChange()==1)
+					{
+		    			try {
+		    				set2ToCompare.removeAllItems();		    				
+		    				new Thread(new Runnable() {
+								
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									String type1="";
+									try {
+										type1 = new funImple().GetSetType(Set1ToCompare.getSelectedItem().toString());
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									ArrayList<String> set2fail=XmlCompare.failedSetNameArrayListOfSet2;
+									for (String s : set2fail) {
+										try {
+											if(new funImple().GetSetType(s).equals(type1))
+											{
+												set2ToCompare.addItem(s);
+											}
+										} catch (Exception e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+									
+									
+								}
+							}).start();
+							
+		    			
+		    			} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+		    			
+		    			
+					}
+		    	}
+		    });
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//init
+				XmlCompare.uuid1=new ArrayList<String>();
+				XmlCompare.uuid2=new ArrayList<String>();
+				XmlCompare.failedSetNameArrayListOfSet1=new ArrayList<String>();
+				XmlCompare.failedSetNameArrayListOfSet2=new ArrayList<String>();
 				new ScheduleJob().CompareXmlData();
 			}
 		});

@@ -76,6 +76,6 @@ public class ScheduleJob {
 
 	@SuppressWarnings("rawtypes")
 	public void CompareXmlData() {		
-		new XmlCompare(uuidlist1, uuidlist2).Check();
+		XmlCompare.getInstance(uuidlist1, uuidlist2).Check();
 	}
 }

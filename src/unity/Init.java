@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.SwingUtilities;
 
+import jxl.biff.ContinueRecord;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
@@ -35,21 +36,123 @@ public class Init {
 		ConcurrentHashMap<String, String> map=new ConcurrentHashMap<String, String>();
 		xml=xml.substring(0,xml.length()-2);	
 		String [] temp=xml.split(" ");
+	  //处理Value里面不和谐的不该出现的空格问题
 		for(int i=1;i<temp.length;i++)
 		{
 			if(!temp[i].contains("="))
 			{
-				temp[i-1]=temp[i-1]+" "+temp[i];
-				temp[i]="ignore";
+				for(int j=i;j<temp.length;j++)
+				{
+					if(temp[j].contains("="))
+					{
+						continue;
+					}else{
+						temp[i-1]+=" "+temp[j];
+						temp[j]="ignore";
+					}
+				}
 			}
-			
-		}
+			}
+//			//"a b c d e f"
+//			if(i<temp.length-4)
+//			{
+//			if((!temp[i].contains("="))&&(!temp[i+1].contains("="))&&(!temp[i+2].contains("="))&&(!temp[i+3].contains("="))&&(!temp[i+4].contains("=")))
+//			{
+//				temp[i-1]=temp[i-1]+" "+temp[i]+" "+temp[i+1]+" "+temp[i+2]+" "+temp[i+3]+" "+temp[i+4];
+////				for(int j=i;j<temp.length-1;j++)
+////				{
+////					temp[j]=temp[j+1];
+////				}
+//				temp[i]="ignore";
+//				temp[i+1]="ignore";
+//				temp[i+2]="ignore";
+//				temp[i+3]="ignore";
+//				temp[i+4]="ignore";
+//				continue;
+//			}
+//			}
+//			
+//			
+//			//"a b c d e"
+//			if(i<temp.length-3)
+//			{
+//			if((!temp[i].contains("="))&&(!temp[i+1].contains("="))&&(!temp[i+2].contains("="))&&(!temp[i+3].contains("=")))
+//			{
+//				temp[i-1]=temp[i-1]+" "+temp[i]+" "+temp[i+1]+" "+temp[i+2]+" "+temp[i+3];
+////				for(int j=i;j<temp.length-1;j++)
+////				{
+////					temp[j]=temp[j+1];
+////				}
+//				temp[i]="ignore";
+//				temp[i+1]="ignore";
+//				temp[i+2]="ignore";
+//				temp[i+3]="ignore";
+//				continue;
+//			}
+//			}
+//			
+//			//"a b c d"
+//			if(i<temp.length-2)
+//			{
+//			if((!temp[i].contains("="))&&(!temp[i+1].contains("="))&&(!temp[i+2].contains("=")))
+//			{
+//				temp[i-1]=temp[i-1]+" "+temp[i]+" "+temp[i+1]+" "+temp[i+2];
+////				for(int j=i;j<temp.length-1;j++)
+////				{
+////					temp[j]=temp[j+1];
+////				}
+//				temp[i]="ignore";
+//				temp[i+1]="ignore";
+//				temp[i+2]="ignore";
+//				continue;
+//			}
+//			}
+//			//"a b c"
+//			if(i<temp.length-1)
+//			{
+//			if((!temp[i].contains("="))&&(!temp[i+1].contains("=")))
+//			{
+//				temp[i-1]=temp[i-1]+" "+temp[i]+" "+temp[i+1];
+////				for(int j=i;j<temp.length-1;j++)
+////				{
+////					temp[j]=temp[j+1];
+////				}
+//				temp[i]="ignore";
+//				temp[i+1]="ignore";
+//				continue;
+//			}
+//			}
+//			
+//
+//			//"a b"
+//			if(!temp[i].contains("="))
+//			{
+//				temp[i-1]=temp[i-1]+" "+temp[i];
+////				for(int j=i;j<temp.length-1;j++)
+////				{
+////					temp[j]=temp[j+1];
+////				}
+//				temp[i]="ignore";
+//				continue;
+//			}
+//			
+//			
+//		}
 		for(int i=1;i<temp.length;i++){
-			if(!temp[i].equals("ignore"))
+			if(!temp[i].contains("ignore"))
 			{
 				map.put(temp[i].split("=")[0], temp[i].split("=")[1]);
 			}	
 		}
+//		for (String s : temp) {
+//			try {
+//				map.put(s.split("=")[0], s.split("=")[1]);
+//			} catch (java.lang.ArrayIndexOutOfBoundsException e) {
+//				// TODO: handle exception
+//				continue;
+//			}
+			
+//		}
 		return map;
 	}
 	public static ArrayList<String> compareSet(String setName1,String setName2)
@@ -163,7 +266,7 @@ public class Init {
 					
 				} catch (NullPointerException e) {
 					// TODO: handle exception
-					list.add(fieldName+"="+fieldValue+","+"=MVO Default Value");
+					list.add(fieldName+"="+fieldValue+","+"MVO Default Value");
 				}
 				
 			}
@@ -293,7 +396,7 @@ public class Init {
 	}
 	public static StringBuffer getMeteData(){
 		StringBuffer buffer=new StringBuffer();
-	    File file = new File("d://totalMetaData.xml");
+	    File file = new File("data/totalMetaData.xml");
 	    BufferedInputStream fis;
 		try {
 			fis = new BufferedInputStream(new FileInputStream(file),1024*1024);
@@ -312,6 +415,84 @@ public class Init {
 		}
 	    
 		return buffer;
+	}
+	public static StringBuffer getData(String path){
+		StringBuffer buffer=new StringBuffer();
+	    File file = new File(path);
+	    BufferedInputStream fis;
+		try {
+			fis = new BufferedInputStream(new FileInputStream(file),1024*1024);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+			String temp="";
+			while((temp=reader.readLine())!=null){
+				buffer.append(temp);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // 用缓冲读取
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+		return buffer;
+	}
+	public static String getNewName(String oldName) throws Exception{
+		String path="data/"+"ASTROFields.xml";
+		String name="";
+		String xml=getData(path).toString();
+		try {
+			int startIndex=xml.indexOf(oldName);
+			if(startIndex==-1)
+				{
+					path="data/"+"PCRFields.xml";
+					xml=getData(path).toString();
+				}
+			xml=xml.substring(startIndex);
+			int endIndex=xml.indexOf("ui_name");
+			xml=xml.substring(endIndex);
+			int endIndex1=xml.indexOf("\"");
+			xml=xml.substring(endIndex1);
+			name=xml.split("\"")[1];			
+		} catch(IndexOutOfBoundsException e){
+			return getNewName1(new funImple().GetSetType(CompareFrame.getSet1ToCompare().getSelectedItem().toString()), oldName);
+		}
+		return "\""+name+"\"";
+		}
+	public static String getNewName1(String type,String oldName){
+		String path="data/"+"ASTRO/"+type+".xml";
+		String name="";
+		File file=new File(path);
+		if(!file.exists())
+			path="data/"+"PCR/"+type+".xml";
+		String xml=getData(path).toString();
+		try {
+			int startIndex=xml.indexOf(oldName);
+			if(startIndex==-1)
+				{
+					path="data/"+"PCR/"+type+".xml";
+					xml=getData(path).toString();
+				}
+			xml=xml.substring(startIndex);
+			int endIndex=xml.indexOf("UIName");
+			xml=xml.substring(endIndex);
+			int endIndex1=xml.indexOf("\"");
+			xml=xml.substring(endIndex1);
+			name=xml.split("\"")[1];			
+		} catch(IndexOutOfBoundsException e){
+			return  oldName;
+		}
+		return "\""+name+"\"";
+		}
+	public static ArrayList<String> getRealFieldName(ArrayList<String> list) throws Exception{
+		ArrayList<String>  temp=new ArrayList<String>();
+		for (String s : list) {
+			String oldName=s.split("=")[0];
+			String newName=getNewName(oldName);
+			temp.add(newName+"="+s.split("=")[1]);
+		}
+		return temp;
 	}
 	public static String getThemeName(){
 		String name="com.jtattoo.plaf.acryl.AcrylLookAndFeel";
