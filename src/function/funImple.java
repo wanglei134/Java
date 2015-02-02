@@ -75,13 +75,37 @@ public class funImple implements funInterface {
 	public ArrayList<String> GetAllSetUUid(String configUUid) throws Exception {
 		// TODO Auto-generated method stub
 		ArrayList<String> allSetUUid=new ArrayList<String>();
-		String sql="WITH locs(ParentUUid,ChildUUid) AS ( "+
-				"SELECT ParentUUid,ChildUUid FROM MapEntities WHERE ParentUUid=?  "+
-				"UNION ALL "+
-				"SELECT l.ParentUUid,l.ChildUUid FROM MapEntities l "+ 
-				"INNER JOIN locs p ON l.ParentUUid=p.ChildUUid "+
-				") "+
-				"SELECT DISTINCT ChildUUid FROM locs OPTION(MAXRECURSION 0)";  		
+//		String sql="WITH locs(ParentUUid,ChildUUid) AS ( "+
+//				"SELECT ParentUUid,ChildUUid FROM MapEntities WHERE ParentUUid=?  "+
+//				"UNION ALL "+
+//				"SELECT l.ParentUUid,l.ChildUUid FROM MapEntities l "+ 
+//				"INNER JOIN locs p ON l.ParentUUid=p.ChildUUid "+
+//				") "+
+//				"SELECT DISTINCT ChildUUid FROM locs OPTION(MAXRECURSION 0)"; 
+		String sql="with C as "+
+					" ( "+
+					"  select T.ParentUUId, "+
+					"         T.ChildUUId, "+
+					"         cast(',' + cast(ParentUUId as varchar(50)) + ',' as varchar(max)) as Path, "+
+					"         0 Cycle "+
+					"  from MapEntities as T "+
+					"  where T.ParentUUId=? "+
+					"  union all "+
+					"  select T.ParentUUId, "+
+					"         T.ChildUUId, "+
+					"         C.Path + cast(T.ParentUUId as varchar(50)) + ',', "+
+					"         case when C.Path like '%,'+cast(T.ParentUUId as varchar(50))+',%'  "+
+					"           then 1  "+
+					"           else 0  "+
+					"         end "+
+					"  from MapEntities as T "+
+					"    inner join C   "+
+					"      on T.ParentUUId = C.ChildUUId "+
+					"  where C.Cycle = 0 "+
+					" ) "+
+					" select DISTINCT ChildUUId "+
+					" from C "+
+					" where Cycle = 0"; 
 		this.statement=this.conn.prepareStatement(sql);
 		this.statement.setString(1, configUUid);
 		ResultSet re=this.statement.executeQuery();
